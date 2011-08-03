@@ -1,0 +1,9 @@
+* chan_h323/openh323 linking. See comment in patch h323-no-deps-on-asterisk
+* The asterisk canary dies on startup sometimes. Canary is anyway not needed
+  on Lenny kernel (>= 2.6.25). But if it dies we lose the effect of 
+  real-time priority.
+* Canary is not killed when Asterisk is stopped.
+* Some man pages to write.
+* Remove the TeX sources from the package asterisk-doc .
+* Package sound files properly. Maybe in a separate package altogether?
+  See also patch make-clean-fixes.

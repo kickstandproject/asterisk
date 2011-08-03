@@ -1,0 +1,175 @@
+asterisk (1:1.8.5.0-1kickstand0+1~ppa14) lucid; urgency=low
+
+  * debian/asterisk.init:
+    - chown /dev/dahdi.
+
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Mon, 25 Jul 2011 01:09:50 -0400
+
+asterisk (1:1.8.5.0-1kickstand0+1~ppa13) lucid; urgency=low
+
+  * debian/control:
+    - Bump libpri-dev to 1.4.11
+
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Sun, 24 Jul 2011 23:52:32 -0400
+
+asterisk (1:1.8.5.0-1kickstand0+1~ppa11) lucid; urgency=low
+
+  * debian/patches:
+    - 2011.07.21-001.diff, drop resource support for:
+      * res_ael_share.so
+      * res_phoneprov.so
+      * res_timing_pthread.so
+    - 2011.07.23-001.diff, drop CDR support for:
+      * cdr_odbc.so
+    - 2011.07.23-001.diff, drop channel support for:
+      * chan_agent.so
+      * chan_mgcp.so
+      * chan_oss.so
+      * chan_phone.so
+      * chan_skinny.so
+      * chan_unistim.so
+   * Create /var/lib/asterisk/keys and /usr/share/asterisk/moh directories.
+
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Sun, 24 Jul 2011 15:25:22 -0400
+
+asterisk (1:1.8.5.0-1kickstand0+1~ppa7) lucid; urgency=low
+
+  * asterisk-config:
+    - Add missing ccss.general.conf file.
+    - Fix #include typo for logger.logfiles.conf.
+    - Add missing etc/asterisk/defaults directory.
+
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Sat, 23 Jul 2011 14:45:20 -0400
+
+asterisk (1:1.8.5.0-1kickstand0+1~ppa4) lucid; urgency=low
+
+  * debian/patches:
+    - Add 2011.07.21-001.diff to disable specific modules by default.
+  * asterisk:
+    - Drop asterisk-ooh323 from Suggests.
+  * asterisk-config:
+    - Drop /etc/asterisk/manager.d directory.
+    - Add default configuration files.
+
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Fri, 22 Jul 2011 22:07:14 -0400
+
+asterisk (1:1.8.5.0-1kickstand0+1~ppa3) lucid; urgency=low
+
+  * Use Standards-Version: 3.9.1 to silence warning.
+  * Drop asterisk samples configuration files.
+  * Import basic configuration file support.
+
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 21 Jul 2011 18:38:21 -0400
+
+asterisk (1:1.8.5.0-1kickstand0+1~ppa2) lucid; urgency=low
+
+  * Drop version number for asterisk-core-sounds-en.
+
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 21 Jul 2011 02:03:46 -0400
+
+asterisk (1:1.8.5.0-1kickstand0+1~ppa1) lucid; urgency=low
+
+  * Initial import.
+  * Drop support for chan_h323, chan_ooh323, chan_mobile and chan_vpb
+  * Drop support for addons.
+  * Drop build dependencies:
+    - libmysqlclient-dev
+    - libjack-dev
+    - liblua5.1-0-dev
+    - freetds-dev
+    - libsqlite0-dev
+    - libasound2-dev
+    - libnewt-dev
+    - libradiusclient-ng-dev
+    - libvorbis-dev
+    - libpq-dev
+
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Wed, 20 Jul 2011 10:27:56 -0400
+
+asterisk (1:1.8.5.0-1digium1~lucid) lucid; urgency=low
+
+  * New upstream release.
+  * Fixed Vcs-Svn URL and add Vcs-Browser.
+  * Bump asterisk-core-sounds-en-gsm to 1.4.21.
+  * Drop deps on gsfonts and graphviz: we no longer generate documentation.
+  * Dump dependency on quilt. We use dpkgv3.
+  * Bump Standards version to 3.9.2.0 (no change needed).
+  * Prefers chan_ooh323 to chan_h323. Suggest asterisk-ooh323.
+  * Suggest asterisk-dahdi.
+  * Fix version-substvar-for-external-package asterisk-dbg lintian error.
+
+ -- Paul Belanger <pabelanger@digium.com>  Mon, 11 Jul 2011 18:46:15 -0500
+
+asterisk (1:1.8.4.4-1digium1~lucid) lucid; urgency=high
+
+  * SECURITY UPDATE:
+  * References
+    - AST-2011-011 - Possible enumeration of SIP users due to differing
+      authentication responses
+
+ -- Paul Belanger <pabelanger@digium.com>  Wed, 29 Jun 2011 10:00:38 -0400
+
+asterisk (1:1.8.4.3-1digium1~lucid) lucid; urgency=high
+
+  * SECURITY UPDATE:
+  * References
+    - AST-2011-008 - Remote Crash Vulnerability in SIP channel driver
+    - AST-2011-009 - Remote Crash Vulnerability in SIP channel driver
+    - AST-2011-010 - Remote crash vulnerability in IAX2 channel driver
+
+ -- Paul Belanger <pabelanger@digium.com>  Fri, 24 Jun 2011 02:38:07 -0400
+
+asterisk (1:1.8.4.2-1digium1~lucid) lucid; urgency=high
+
+  * SECURITY UPDATE:
+  * References
+    - AST-2011-007 - Remote Crash Vulnerability in SIP channel driver
+
+ -- Paul Belanger <pabelanger@digium.com>  Fri, 17 Jun 2011 12:03:07 -0400
+
+asterisk (1:1.8.4.1-1digium1~lucid) lucid; urgency=low
+
+  * New upstream release
+
+ -- Paul Belanger <pabelanger@digium.com>  Mon, 23 May 2011 16:45:30 -0400
+
+asterisk (1:1.8.4-1digium1~lucid) lucid; urgency=low
+
+  * New upstream release.
+  * Change package back to asterisk.  This will help to override the upstream
+    version included in Debian / Ubuntu.
+  * Regardless of which asterisk-voicemail-* is installed (each package 
+    conflicts on each other), the name of the module is now
+    app_voicemail.so.
+  * include menuselect.makeopts in the docs directory - let us know what
+    modules were not built.
+  * debian/control:
+    - Update Vcs-Svn and remove Vcs-Browser.
+  * When compiling with DEB_BUILD_OPTIONS="debug" enable native Asterisk
+    debugging tools.  Specifically DONT_OPTIMIZE, DEBUG_THREADS and
+    --enable-dev-mode. 
+
+ -- Paul Belanger <pabelanger@digium.com>  Tue, 10 May 2011 10:46:04 -0400
+
+asterisk-1.8 (1:1.8.3.3-1digium1~lucid) lucid; urgency=high
+
+  * SECURITY UPDATE:
+  * References
+    - AST-2011-005 - File Descriptor Resource Exhaustion
+    - AST-2011-006 - Asterisk Manager User Shell Access
+  * debian/watch: Only watch for Asterisk 1.8 tarballs.
+
+ -- Paul Belanger <pabelanger@digium.com>  Thu, 21 Apr 2011 20:15:54 -0400
+
+asterisk-1.8 (1:1.8.3.2-1digium1~lucid) lucid; urgency=low
+
+  * New upstream release.
+  * debian/watch: fix bug when using uscan --verbose.
+
+ -- Paul Belanger <pabelanger@digium.com>  Thu, 31 Mar 2011 11:17:20 -0400
+
+asterisk-1.8 (1:1.8.3-1digium1~lucid) lucid; urgency=low
+
+  * Initial release (imported from Debian pkg-voip experimental branch).
+
+ -- Paul Belanger <pabelanger@digium.com>  Wed, 02 Mar 2011 10:22:56 -0500

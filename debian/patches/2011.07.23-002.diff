@@ -1,0 +1,67 @@
+--- a/channels/chan_agent.c
++++ b/channels/chan_agent.c
+@@ -33,6 +33,7 @@
+ /*** MODULEINFO
+         <depend>chan_local</depend>
+         <depend>res_monitor</depend>
++	<defaultenabled>no</defaultenabled>
+  ***/
+ 
+ #include "asterisk.h"
+--- a/channels/chan_oss.c
++++ b/channels/chan_oss.c
+@@ -35,6 +35,7 @@
+ 
+ /*** MODULEINFO
+ 	<depend>oss</depend>
++	<defaultenabled>no</defaultenabled>
+  ***/
+ 
+ #include "asterisk.h"
+--- a/channels/chan_phone.c
++++ b/channels/chan_phone.c
+@@ -27,6 +27,7 @@
+ 
+ /*** MODULEINFO
+ 	<depend>ixjuser</depend>
++	<defaultenabled>no</defaultenabled>
+  ***/
+ 
+ #include "asterisk.h"
+--- a/channels/chan_unistim.c
++++ b/channels/chan_unistim.c
+@@ -32,6 +32,10 @@
+  * \ingroup channel_drivers
+  */
+ 
++/*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
++ ***/
++
+ #include "asterisk.h"
+ 
+ ASTERISK_FILE_VERSION(__FILE__, "$Revision: 317478 $")
+--- a/channels/chan_skinny.c
++++ b/channels/chan_skinny.c
+@@ -25,6 +25,9 @@
+  * \ingroup channel_drivers
+  */
+ 
++/*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
++ ***/
+ 
+ #include "asterisk.h"
+ 
+--- a/channels/chan_mgcp.c
++++ b/channels/chan_mgcp.c
+@@ -30,7 +30,8 @@
+  */
+ 
+ /*** MODULEINFO
+-        <use>res_pktccops</use>
++	<use>res_pktccops</use>
++	<defaultenabled>no</defaultenabled>
+  ***/
+ 
+ #include "asterisk.h"

@@ -1,0 +1,12 @@
+Document: asterisk
+Title: Asterisk Reference Information
+Author: Asterisk Development Team
+Abstract: The Asterisk PBX: A system administrator reference
+Section: Network/Communication
+
+Format: PDF
+Files: /usr/share/doc/asterisk-doc/AST.pdf.gz
+
+Format: text
+Files: /usr/share/doc/asterisk-doc/AST.txt.gz
+

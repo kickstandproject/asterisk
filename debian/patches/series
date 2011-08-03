@@ -1,0 +1,13 @@
+# upstream fixes
+allow-tilde-destdir
+
+hack-multiple-app-voicemail
+make-clean-fixes
+safe_asterisk-config
+safe_asterisk-nobg
+
+astgenkey-security
+
+2011.07.21-001.diff
+2011.07.23-001.diff
+2011.07.23-002.diff

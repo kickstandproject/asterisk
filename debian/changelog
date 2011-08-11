@@ -1,4 +1,4 @@
-asterisk (1:1.8.5.0-1kickstand0+1) lucid; urgency=low
+asterisk (1:1.8.5.0-1kickstand0+1) UNRELEASED; urgency=low
 
   * Initial import.
   * Use Standards-Version: 3.9.1 to silence warning.
@@ -42,7 +42,7 @@ asterisk (1:1.8.5.0-1kickstand0+1) lucid; urgency=low
     - libvorbis-dev
     - libpq-dev
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 11 Aug 2011 19:35:43 -0400
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 11 Aug 2011 19:37:06 -0400
 
 asterisk (1:1.8.5.0-1digium1~lucid) lucid; urgency=low
 

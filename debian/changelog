@@ -1,16 +1,28 @@
 asterisk (1:1.8.5.0-1kickstand0+1) UNRELEASED; urgency=low
 
   * Initial import.
-  * Use Standards-Version: 3.9.1 to silence warning.
   * Drop asterisk samples configuration files.
-  * Drop version number for asterisk-core-sounds-en.
-  * Drop support for chan_h323, chan_ooh323, chan_mobile and chan_vpb
-  * Drop support for addons.
   * Create /var/lib/asterisk/keys and /usr/share/asterisk/moh directories.
   * debian/asterisk.init:
     - chown /dev/dahdi.
   * debian/control:
+    - Use Standards-Version: 3.9.1 to silence warning.
     - Bump libpri-dev to 1.4.11
+    - Update Vcs-Git and Vcs-Browser fields for GitHub.
+    - Update Maintainer field.
+    - Drop asterisk-ooh323 from Suggests.
+    - Drop build dependencies:
+      * libmysqlclient-dev
+      * libjack-dev
+      * liblua5.1-0-dev
+      * freetds-dev
+      * libsqlite0-dev
+      * libasound2-dev
+      * libnewt-dev
+      * libradiusclient-ng-dev
+      * libvorbis-dev
+      * libpq-dev
+    - Drop version number for asterisk-core-sounds-en.
   * debian/patches:
     - 2011.07.21-001.diff, drop resource support for:
       * res_ael_share.so
@@ -25,24 +37,12 @@ asterisk (1:1.8.5.0-1kickstand0+1) UNRELEASED; urgency=low
       * chan_phone.so
       * chan_skinny.so
       * chan_unistim.so
-  * debian/asterisk:
-    - Drop asterisk-ooh323 from Suggests.
   * debian/asterisk-config:
     - Drop /etc/asterisk/manager.d directory.
     - Add default configuration files.
-  * Drop build dependencies:
-    - libmysqlclient-dev
-    - libjack-dev
-    - liblua5.1-0-dev
-    - freetds-dev
-    - libsqlite0-dev
-    - libasound2-dev
-    - libnewt-dev
-    - libradiusclient-ng-dev
-    - libvorbis-dev
-    - libpq-dev
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 11 Aug 2011 19:37:06 -0400
+
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 11 Aug 2011 19:54:07 -0400
 
 asterisk (1:1.8.5.0-1digium1~lucid) lucid; urgency=low
 

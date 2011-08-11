@@ -1,19 +1,16 @@
-asterisk (1:1.8.5.0-1kickstand0+1~ppa14) lucid; urgency=low
+asterisk (1:1.8.5.0-1kickstand0+1) lucid; urgency=low
 
+  * Initial import.
+  * Use Standards-Version: 3.9.1 to silence warning.
+  * Drop asterisk samples configuration files.
+  * Drop version number for asterisk-core-sounds-en.
+  * Drop support for chan_h323, chan_ooh323, chan_mobile and chan_vpb
+  * Drop support for addons.
+  * Create /var/lib/asterisk/keys and /usr/share/asterisk/moh directories.
   * debian/asterisk.init:
     - chown /dev/dahdi.
-
- -- Paul Belanger <paul.belanger@polybeacon.com>  Mon, 25 Jul 2011 01:09:50 -0400
-
-asterisk (1:1.8.5.0-1kickstand0+1~ppa13) lucid; urgency=low
-
   * debian/control:
     - Bump libpri-dev to 1.4.11
-
- -- Paul Belanger <paul.belanger@polybeacon.com>  Sun, 24 Jul 2011 23:52:32 -0400
-
-asterisk (1:1.8.5.0-1kickstand0+1~ppa11) lucid; urgency=low
-
   * debian/patches:
     - 2011.07.21-001.diff, drop resource support for:
       * res_ael_share.so
@@ -28,50 +25,11 @@ asterisk (1:1.8.5.0-1kickstand0+1~ppa11) lucid; urgency=low
       * chan_phone.so
       * chan_skinny.so
       * chan_unistim.so
-   * Create /var/lib/asterisk/keys and /usr/share/asterisk/moh directories.
-
- -- Paul Belanger <paul.belanger@polybeacon.com>  Sun, 24 Jul 2011 15:25:22 -0400
-
-asterisk (1:1.8.5.0-1kickstand0+1~ppa7) lucid; urgency=low
-
-  * asterisk-config:
-    - Add missing ccss.general.conf file.
-    - Fix #include typo for logger.logfiles.conf.
-    - Add missing etc/asterisk/defaults directory.
-
- -- Paul Belanger <paul.belanger@polybeacon.com>  Sat, 23 Jul 2011 14:45:20 -0400
-
-asterisk (1:1.8.5.0-1kickstand0+1~ppa4) lucid; urgency=low
-
-  * debian/patches:
-    - Add 2011.07.21-001.diff to disable specific modules by default.
-  * asterisk:
+  * debian/asterisk:
     - Drop asterisk-ooh323 from Suggests.
-  * asterisk-config:
+  * debian/asterisk-config:
     - Drop /etc/asterisk/manager.d directory.
     - Add default configuration files.
-
- -- Paul Belanger <paul.belanger@polybeacon.com>  Fri, 22 Jul 2011 22:07:14 -0400
-
-asterisk (1:1.8.5.0-1kickstand0+1~ppa3) lucid; urgency=low
-
-  * Use Standards-Version: 3.9.1 to silence warning.
-  * Drop asterisk samples configuration files.
-  * Import basic configuration file support.
-
- -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 21 Jul 2011 18:38:21 -0400
-
-asterisk (1:1.8.5.0-1kickstand0+1~ppa2) lucid; urgency=low
-
-  * Drop version number for asterisk-core-sounds-en.
-
- -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 21 Jul 2011 02:03:46 -0400
-
-asterisk (1:1.8.5.0-1kickstand0+1~ppa1) lucid; urgency=low
-
-  * Initial import.
-  * Drop support for chan_h323, chan_ooh323, chan_mobile and chan_vpb
-  * Drop support for addons.
   * Drop build dependencies:
     - libmysqlclient-dev
     - libjack-dev
@@ -84,7 +42,7 @@ asterisk (1:1.8.5.0-1kickstand0+1~ppa1) lucid; urgency=low
     - libvorbis-dev
     - libpq-dev
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Wed, 20 Jul 2011 10:27:56 -0400
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 11 Aug 2011 19:35:43 -0400
 
 asterisk (1:1.8.5.0-1digium1~lucid) lucid; urgency=low
 

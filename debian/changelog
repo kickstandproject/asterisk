@@ -1,3 +1,10 @@
+asterisk (1:1.8.5.0-1kickstand0+1ppa2~pabelanger) lucid; urgency=low
+
+  * debian/rules:
+    - chmod /etc/asterisk/sites folder.
+
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Sun, 14 Aug 2011 13:54:02 -0400
+
 asterisk (1:1.8.5.0-1kickstand0+1ppa1~pabelanger) lucid; urgency=low
 
   * Initial import.

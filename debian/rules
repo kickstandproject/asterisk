@@ -179,6 +179,7 @@ binary-indep: install-indep
 	# sensitive information, such as passwords
 	chmod 440 $(CURDIR)/debian/asterisk-config/etc/asterisk/*
 	chmod 550 $(CURDIR)/debian/asterisk-config/etc/asterisk/defaults
+	chmod 750 $(CURDIR)/debian/asterisk-config/etc/asterisk/sites
 	dh_installdeb -i
 	dh_gencontrol -i
 	dh_md5sums -i

@@ -1,4 +1,4 @@
-asterisk (1:1.8.5.0-1kickstand0+1) UNRELEASED; urgency=low
+asterisk (1:1.8.5.0-1kickstand0+1ppa1~pabelanger) lucid; urgency=low
 
   * Initial import.
   * Drop asterisk samples configuration files.
@@ -41,7 +41,7 @@ asterisk (1:1.8.5.0-1kickstand0+1) UNRELEASED; urgency=low
     - Drop /etc/asterisk/manager.d directory.
     - Add default configuration files.
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 11 Aug 2011 19:57:06 -0400
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Sun, 14 Aug 2011 13:01:42 -0400
 
 asterisk (1:1.8.5.0-1digium1~lucid) lucid; urgency=low
 

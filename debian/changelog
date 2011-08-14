@@ -1,3 +1,9 @@
+asterisk (1:1.8.5.0-1kickstand0+1ppa3~pabelanger) UNRELEASED; urgency=low
+
+  * Add comment headers to config files.
+
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Sun, 14 Aug 2011 15:26:52 -0400
+
 asterisk (1:1.8.5.0-1kickstand0+1ppa2~pabelanger) lucid; urgency=low
 
   * debian/rules:

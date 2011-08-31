@@ -37,3 +37,15 @@
  #include "asterisk.h"
  
  #include <sys/ioctl.h>
+--- a/res/res_clialiases.c
++++ b/res/res_clialiases.c
+@@ -26,6 +26,9 @@
+  * CLI commands.
+  */
+ 
++/*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
++ ***/
+ 
+ #include "asterisk.h"
+ 

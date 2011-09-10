@@ -13,3 +13,6 @@ astgenkey-security
 2011.07.23-002.diff
 2011.08.31-001.diff
 2011.08.31-002.diff
+
+# Custom patches
+custom-001-cdr.conf.diff

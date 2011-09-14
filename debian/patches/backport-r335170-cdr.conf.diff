@@ -23,7 +23,7 @@
  	struct ast_flags config_flags = { reload ? CONFIG_FLAG_FILEUNCHANGED : 0 };
  
  	if ((config = ast_config_load2("cdr.conf", "cdr", config_flags)) == CONFIG_STATUS_FILEUNCHANGED) {
-@@ -1516,42 +1508,46 @@ static int do_reload(int reload)
+@@ -1516,42 +1508,38 @@ static int do_reload(int reload)
  	/* don't run the next scheduled CDR posting while reloading */
  	AST_SCHED_DEL(sched, cdr_sched);
  
@@ -50,20 +50,15 @@
 +	for (v = ast_variable_browse(config, "general"); v; v = v->next) {
 +		if (!strcasecmp(v->name, "enable")) {
 +			enabled = ast_true(v->value);
-+		}
-+		if (!strcasecmp(v->name, "unanswered")) {
++		} else if (!strcasecmp(v->name, "unanswered")) {
 +			unanswered = ast_true(v->value);
-+		}
-+		if (!strcasecmp(v->name, "batch")) {
++		} else if (!strcasecmp(v->name, "batch")) {
 +			batchmode = ast_true(v->value);
-+		}
-+		if (!strcasecmp(v->name, "scheduleronly")) {
++		} else if (!strcasecmp(v->name, "scheduleronly")) {
 +			batchscheduleronly = ast_true(v->value);
-+		}
-+		if (!strcasecmp(v->name, "safeshutdown")) {
++		} else if (!strcasecmp(v->name, "safeshutdown")) {
 +			batchsafeshutdown = ast_true(v->value);
-+		}
-+		if (!strcasecmp(v->name, "size")) {
++		} else if (!strcasecmp(v->name, "size")) {
 +			if (sscanf(v->value, "%30d", &cfg_size) < 1) {
 +				ast_log(LOG_WARNING, "Unable to convert '%s' to a numeric value.\n", v->value);
 +			} else if (cfg_size < 0) {
@@ -71,13 +66,13 @@
 -			else
 +			} else {
  				batchsize = cfg_size;
-+			}
- 		}
+-		}
 -		if ((time_value = ast_variable_retrieve(config, "general", "time"))) {
 -			if (sscanf(time_value, "%30d", &cfg_time) < 1)
 -				ast_log(LOG_WARNING, "Unable to convert '%s' to a numeric value.\n", time_value);
 -			else if (cfg_time < 0)
-+		if (!strcasecmp(v->name, "time")) {
++			}
++		} else if (!strcasecmp(v->name, "time")) {
 +			if (sscanf(v->value, "%30d", &cfg_time) < 1) {
 +				ast_log(LOG_WARNING, "Unable to convert '%s' to a numeric value.\n", v->value);
 +			} else if (cfg_time < 0) {
@@ -86,11 +81,9 @@
 +			} else {
  				batchtime = cfg_time;
 +			}
-+		}
-+		if (!strcasecmp(v->name, "endbeforehexten")) {
++		} else if (!strcasecmp(v->name, "endbeforehexten")) {
 +			ast_set2_flag(&ast_options, ast_true(v->value), AST_OPT_FLAG_END_CDR_BEFORE_H_EXTEN);
-+		}
-+		if (!strcasecmp(v->name, "initiatedseconds")) {
++		} else if (!strcasecmp(v->name, "initiatedseconds")) {
 +			ast_set2_flag(&ast_options, ast_true(v->value), AST_OPT_FLAG_INITIATED_SECONDS);
  		}
 -		if ((end_before_h_value = ast_variable_retrieve(config, "general", "endbeforehexten")))

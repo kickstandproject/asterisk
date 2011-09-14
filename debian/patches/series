@@ -16,3 +16,4 @@ astgenkey-security
 
 # Backports
 backport-r335170-cdr.conf.diff
+backport-r335555-dnsmgr.conf.diff

@@ -99,8 +99,8 @@ Description: DAHDI devices support for the Asterisk PBX
 Package: asterisk-voicemail
 Architecture: any
 Depends: asterisk, ${shlibs:Depends}, ${misc:Depends}
-Provides: asterisk-vocemail-storage
-Conflicts: asterisk-vocemail-storage
+Provides: asterisk-voicemail-storage
+Conflicts: asterisk-voicemail-storage
 Breaks: asterisk (<<1.8.0)
 Replaces: asterisk (<<1.8.0)
 Description: simple voicemail support for the Asterisk PBX
@@ -117,8 +117,8 @@ Description: simple voicemail support for the Asterisk PBX
 Package: asterisk-voicemail-imapstorage
 Architecture: any
 Depends: asterisk, ${shlibs:Depends}, ${misc:Depends}
-Provides: asterisk-vocemail-storage
-Conflicts: asterisk-vocemail-storage
+Provides: asterisk-voicemail-storage
+Conflicts: asterisk-voicemail-storage
 Breaks: asterisk (<<1.8.0)
 Replaces: asterisk (<<1.8.0)
 Description: IMAP voicemail storage support for the Asterisk PBX
@@ -134,8 +134,8 @@ Description: IMAP voicemail storage support for the Asterisk PBX
 Package: asterisk-voicemail-odbcstorage
 Architecture: any
 Depends: asterisk, ${shlibs:Depends}, ${misc:Depends}
-Provides: asterisk-vocemail-storage
-Conflicts: asterisk-vocemail-storage
+Provides: asterisk-voicemail-storage
+Conflicts: asterisk-voicemail-storage
 Breaks: asterisk (<<1.8.0)
 Replaces: asterisk (<<1.8.0)
 Description: ODBC voicemail storage support for the Asterisk PBX

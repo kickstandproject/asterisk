@@ -1,5 +1,5 @@
-asterisk (1:1.8.5.0-1kickstand0+1) UNRELEASED; urgency=low
+asterisk (1:1.8.7.0-1kickstand0+1) UNRELEASED; urgency=low
 
   * Initial release (imported from Debian pkg-voip experimental branch).
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Sun, 14 Aug 2011 13:01:42 -0400
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Fri, 23 Sep 2011 15:47:11 -0400

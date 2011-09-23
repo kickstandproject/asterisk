@@ -1,10 +1,10 @@
 --- a/channels/chan_jingle.c
 +++ b/channels/chan_jingle.c
-@@ -31,6 +31,7 @@
+@@ -28,6 +28,7 @@
+  */
+ 
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
  	<depend>iksemel</depend>
  	<depend>res_jabber</depend>
  	<use>openssl</use>
-+	<defaultenabled>no</defaultenabled>
-  ***/
- 
- #include "asterisk.h"

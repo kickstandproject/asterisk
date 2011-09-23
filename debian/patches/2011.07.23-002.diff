@@ -1,67 +1,68 @@
 --- a/channels/chan_agent.c
 +++ b/channels/chan_agent.c
-@@ -33,6 +33,7 @@
+@@ -31,6 +31,7 @@
+  * \ingroup channel_drivers
+  */
  /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
          <depend>chan_local</depend>
          <depend>res_monitor</depend>
-+	<defaultenabled>no</defaultenabled>
-  ***/
- 
- #include "asterisk.h"
+ 	<support_level>core</support_level>
 --- a/channels/chan_oss.c
 +++ b/channels/chan_oss.c
-@@ -35,6 +35,7 @@
+@@ -34,6 +34,7 @@
+  */
  
  /*** MODULEINFO
- 	<depend>oss</depend>
 +	<defaultenabled>no</defaultenabled>
+ 	<depend>oss</depend>
+ 	<support_level>extended</support_level>
   ***/
- 
- #include "asterisk.h"
 --- a/channels/chan_phone.c
 +++ b/channels/chan_phone.c
-@@ -27,6 +27,7 @@
+@@ -26,6 +26,7 @@
+  */
  
  /*** MODULEINFO
- 	<depend>ixjuser</depend>
 +	<defaultenabled>no</defaultenabled>
+ 	<depend>ixjuser</depend>
+ 	<support_level>extended</support_level>
   ***/
- 
- #include "asterisk.h"
 --- a/channels/chan_unistim.c
 +++ b/channels/chan_unistim.c
-@@ -32,6 +32,10 @@
-  * \ingroup channel_drivers
-  */
- 
-+/*** MODULEINFO
-+	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
- 
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 317478 $")
---- a/channels/chan_skinny.c
-+++ b/channels/chan_skinny.c
-@@ -25,6 +25,9 @@
-  * \ingroup channel_drivers
-  */
- 
-+/*** MODULEINFO
-+	<defaultenabled>no</defaultenabled>
-+ ***/
- 
- #include "asterisk.h"
- 
---- a/channels/chan_mgcp.c
-+++ b/channels/chan_mgcp.c
-@@ -30,7 +30,8 @@
+@@ -33,6 +33,7 @@
   */
  
  /*** MODULEINFO
--        <use>res_pktccops</use>
-+	<use>res_pktccops</use>
 +	<defaultenabled>no</defaultenabled>
+ 	<support_level>extended</support_level>
   ***/
  
- #include "asterisk.h"
+--- a/channels/chan_skinny.c
++++ b/channels/chan_skinny.c
+@@ -26,6 +26,7 @@
+  */
+ 
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+ 	<support_level>extended</support_level>
+  ***/
+ 
+@@ -271,7 +272,6 @@ struct keypad_button_message {
+ 	uint32_t callReference;
+ };
+ 
+-
+ #define ENBLOC_CALL_MESSAGE 0x0004
+ struct enbloc_call_message {
+ 	char calledParty[24];
+--- a/channels/chan_mgcp.c
++++ b/channels/chan_mgcp.c
+@@ -30,6 +30,7 @@
+  */
+ 
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+         <use>res_pktccops</use>
+ 	<support_level>extended</support_level>
+  ***/

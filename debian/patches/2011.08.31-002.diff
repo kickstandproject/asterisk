@@ -1,201 +1,150 @@
 --- a/apps/app_adsiprog.c
 +++ b/apps/app_adsiprog.c
-@@ -27,6 +27,7 @@
+@@ -26,6 +26,7 @@
+  */
  
  /*** MODULEINFO
- 	<depend>res_adsi</depend>
 +	<defaultenabled>no</defaultenabled>
+ 	<depend>res_adsi</depend>
+ 	<support_level>extended</support_level>
   ***/
- 
- #include "asterisk.h"
 --- a/apps/app_alarmreceiver.c
 +++ b/apps/app_alarmreceiver.c
-@@ -29,6 +29,10 @@
-  * \ingroup applications
-  */
- 
-+/*** MODULEINFO
-+	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
- 
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 276347 $")
---- a/apps/app_dictate.c
-+++ b/apps/app_dictate.c
-@@ -27,6 +27,10 @@
-  * \ingroup applications
-  */
- 
-+/*** MODULEINFO
-+	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
- 
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 227580 $")
---- a/apps/app_externalivr.c
-+++ b/apps/app_externalivr.c
-@@ -31,6 +31,10 @@
-  * \ingroup applications
-  */
- 
-+/*** MODULEINFO
-+	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
- 
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 309403 $")
---- a/apps/app_followme.c
-+++ b/apps/app_followme.c
 @@ -30,6 +30,7 @@
+  */
  
  /*** MODULEINFO
- 	<depend>chan_local</depend>
 +	<defaultenabled>no</defaultenabled>
+ 	<support_level>extended</support_level>
   ***/
  
- #include "asterisk.h"
+--- a/apps/app_dictate.c
++++ b/apps/app_dictate.c
+@@ -28,6 +28,7 @@
+  */
+ 
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+ 	<support_level>extended</support_level>
+  ***/
+ 
+--- a/apps/app_externalivr.c
++++ b/apps/app_externalivr.c
+@@ -32,6 +32,7 @@
+  */
+ 
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+ 	<support_level>extended</support_level>
+  ***/
+ 
+--- a/apps/app_followme.c
++++ b/apps/app_followme.c
+@@ -29,6 +29,7 @@
+  */
+ 
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+ 	<depend>chan_local</depend>
+ 	<support_level>core</support_level>
+  ***/
 --- a/apps/app_getcpeid.c
 +++ b/apps/app_getcpeid.c
-@@ -25,6 +25,10 @@
-  * \ingroup applications
+@@ -26,6 +26,7 @@
   */
  
-+/*** MODULEINFO
+ /*** MODULEINFO
 +	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
+ 	<support_level>extended</support_level>
+  ***/
  
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 284610 $")
 --- a/apps/app_ices.c
 +++ b/apps/app_ices.c
-@@ -26,7 +26,11 @@
-  *
-  * \ingroup applications
+@@ -28,6 +28,7 @@
   */
-- 
-+
-+/*** MODULEINFO
-+	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
  
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 316265 $")
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+ 	<support_level>extended</support_level>
+  ***/
+  
 --- a/apps/app_image.c
 +++ b/apps/app_image.c
-@@ -24,7 +24,11 @@
-  * 
-  * \ingroup applications
+@@ -26,6 +26,7 @@
   */
-- 
-+
-+/*** MODULEINFO
-+	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
  
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 196072 $")
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+ 	<support_level>extended</support_level>
+  ***/
+  
 --- a/apps/app_morsecode.c
 +++ b/apps/app_morsecode.c
-@@ -24,6 +24,10 @@
-  * \ingroup applications
+@@ -25,6 +25,7 @@
   */
  
-+/*** MODULEINFO
+ /*** MODULEINFO
 +	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
+ 	<support_level>extended</support_level>
+  ***/
  
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 211539 $")
 --- a/apps/app_mp3.c
 +++ b/apps/app_mp3.c
-@@ -27,7 +27,11 @@
-  * 
-  * \ingroup applications
+@@ -29,6 +29,7 @@
   */
-- 
-+
-+/*** MODULEINFO
-+	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
  
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 238010 $")
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+ 	<support_level>extended</support_level>
+  ***/
+  
 --- a/apps/app_nbscat.c
 +++ b/apps/app_nbscat.c
-@@ -24,7 +24,11 @@
-  *  
-  * \ingroup applications
+@@ -26,6 +26,7 @@
   */
-- 
-+
-+/*** MODULEINFO
-+	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
  
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 227580 $")
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+ 	<support_level>extended</support_level>
+  ***/
+  
 --- a/apps/app_sendtext.c
 +++ b/apps/app_sendtext.c
-@@ -26,7 +26,11 @@
-  *
-  * \ingroup applications
+@@ -28,6 +28,7 @@
   */
-- 
-+
-+/*** MODULEINFO
-+	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
  
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 305923 $")
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+ 	<support_level>core</support_level>
+  ***/
+  
 --- a/apps/app_sms.c
 +++ b/apps/app_sms.c
-@@ -34,6 +34,10 @@
-  *		   Not fully tested, under development
+@@ -35,6 +35,7 @@
   */
  
-+/*** MODULEINFO
+ /*** MODULEINFO
 +	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
+ 	<support_level>extended</support_level>
+  ***/
  
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 289426 $")
 --- a/apps/app_test.c
 +++ b/apps/app_test.c
-@@ -27,6 +27,10 @@
-  * \ingroup applications
+@@ -28,6 +28,7 @@
   */
  
-+/*** MODULEINFO
+ /*** MODULEINFO
 +	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
+ 	<support_level>extended</support_level>
+  ***/
  
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 227580 $")
 --- a/apps/app_url.c
 +++ b/apps/app_url.c
-@@ -24,7 +24,11 @@
-  * 
-  * \ingroup applications
+@@ -26,6 +26,7 @@
   */
-- 
-+
-+/*** MODULEINFO
-+	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
  
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 227580 $")
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+ 	<support_level>extended</support_level>
+  ***/
+  

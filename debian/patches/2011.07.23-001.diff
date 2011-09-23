@@ -1,10 +1,10 @@
 --- a/cdr/cdr_odbc.c
 +++ b/cdr/cdr_odbc.c
-@@ -30,6 +30,7 @@
+@@ -29,6 +29,7 @@
+  */
  
  /*** MODULEINFO
- 	<depend>res_odbc</depend>
 +	<defaultenabled>no</defaultenabled>
+ 	<depend>res_odbc</depend>
+ 	<support_level>extended</support_level>
   ***/
- 
- #include "asterisk.h"

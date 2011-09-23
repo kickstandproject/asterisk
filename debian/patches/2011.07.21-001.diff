@@ -1,51 +1,40 @@
 --- a/res/res_timing_pthread.c
 +++ b/res/res_timing_pthread.c
-@@ -23,6 +23,10 @@
-  * \brief pthread timing interface
+@@ -24,6 +24,7 @@
   */
  
-+/*** MODULEINFO
+ /*** MODULEINFO
 +	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
+ 	<support_level>extended</support_level>
+  ***/
  
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 278465 $");
 --- a/res/res_ael_share.c
 +++ b/res/res_ael_share.c
-@@ -25,6 +25,10 @@
-  * \ingroup applications
+@@ -26,6 +26,7 @@
   */
  
-+/*** MODULEINFO
+ /*** MODULEINFO
 +	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
+ 	<support_level>extended</support_level>
+  ***/
  
- ASTERISK_FILE_VERSION(__FILE__, "$Revision: 89511 $")
 --- a/res/res_phoneprov.c
 +++ b/res/res_phoneprov.c
-@@ -26,6 +26,10 @@
-  * \author Terry Wilson <twilson@digium.com>
+@@ -27,6 +27,7 @@
   */
  
-+/*** MODULEINFO
+ /*** MODULEINFO
 +	<defaultenabled>no</defaultenabled>
-+ ***/
-+
- #include "asterisk.h"
+ 	<support_level>extended</support_level>
+  ***/
  
- #include <sys/ioctl.h>
 --- a/res/res_clialiases.c
 +++ b/res/res_clialiases.c
-@@ -26,6 +26,9 @@
-  * CLI commands.
+@@ -27,6 +27,7 @@
   */
  
-+/*** MODULEINFO
+ /*** MODULEINFO
 +	<defaultenabled>no</defaultenabled>
-+ ***/
- 
- #include "asterisk.h"
+ 	<support_level>core</support_level>
+  ***/
  

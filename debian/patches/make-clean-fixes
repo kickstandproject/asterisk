@@ -27,5 +27,5 @@ running 'make dist-clean' before building the package would delete them.
 +	@$(MAKE) -C sounds dist-clean
 +
  datafiles: _all doc/core-en_US.xml
- 	CFLAGS="$(_ASTCFLAGS) $(ASTCFLAGS)" build_tools/mkpkgconfig $(DESTDIR)$(libdir)/pkgconfig;
+ 	CFLAGS="$(_ASTCFLAGS) $(ASTCFLAGS)" build_tools/mkpkgconfig "$(DESTDIR)$(libdir)/pkgconfig";
  # Should static HTTP be installed during make samples or even with its own target ala

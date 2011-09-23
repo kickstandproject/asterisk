@@ -1,0 +1,55 @@
+--- a/channels/chan_iax2.c
++++ b/channels/chan_iax2.c
+@@ -307,6 +307,8 @@ static int srvlookup = 0;
+ 
+ static struct ast_timer *timer;				/* Timer for trunking */
+ 
++static char bindaddr[256] = "0.0.0.0";
++
+ static struct ast_netsock_list *netsock;
+ static struct ast_netsock_list *outsock;		/*!< used if sourceaddress specified and bindaddr == INADDR_ANY */
+ static int defaultsockfd = -1;
+@@ -13064,21 +13066,7 @@ static int set_config(const char *config
+ 		else if (!strcasecmp(v->name, "minregexpire")) 
+ 			min_reg_expire = atoi(v->value);
+ 		else if (!strcasecmp(v->name, "bindaddr")) {
+-			if (reload) {
+-				ast_log(LOG_NOTICE, "Ignoring bindaddr on reload\n");
+-			} else {
+-				if (!(ns = ast_netsock_bind(netsock, io, v->value, portno, qos.tos, qos.cos, socket_read, NULL))) {
+-					ast_log(LOG_WARNING, "Unable apply binding to '%s' at line %d\n", v->value, v->lineno);
+-				} else {
+-						if (strchr(v->value, ':'))
+-						ast_verb(2, "Binding IAX2 to '%s'\n", v->value);
+-						else
+-						ast_verb(2, "Binding IAX2 to '%s:%d'\n", v->value, portno);
+-					if (defaultsockfd < 0) 
+-						defaultsockfd = ast_netsock_sockfd(ns);
+-					ast_netsock_unref(ns);
+-				}
+-			}
++			ast_copy_string(bindaddr, v->value, sizeof(bindaddr));
+ 		} else if (!strcasecmp(v->name, "authdebug")) {
+ 			authdebug = ast_true(v->value);
+ 		} else if (!strcasecmp(v->name, "encryption")) {
+@@ -13267,16 +13255,15 @@ static int set_config(const char *config
+ 		network_change_event_unsubscribe();
+ 	}
+ 
+-	if (defaultsockfd < 0) {
+-		if (!(ns = ast_netsock_bind(netsock, io, "0.0.0.0", portno, qos.tos, qos.cos, socket_read, NULL))) {
++	if (!reload) {
++		if (!(ns = ast_netsock_bind(netsock, io, bindaddr, portno, qos.tos, qos.cos, socket_read, NULL))) {
+ 			ast_log(LOG_ERROR, "Unable to create network socket: %s\n", strerror(errno));
+ 		} else {
+-			ast_verb(2, "Binding IAX2 to default address 0.0.0.0:%d\n", portno);
++			ast_verb(2, "Binding IAX2 to '%s:%d'\n", bindaddr, portno);
+ 			defaultsockfd = ast_netsock_sockfd(ns);
+ 			ast_netsock_unref(ns);
+ 		}
+-	}
+-	if (reload) {
++	} else {
+ 		ast_netsock_release(outsock);
+ 		outsock = ast_netsock_list_alloc();
+ 		if (!outsock) {

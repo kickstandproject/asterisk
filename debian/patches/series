@@ -19,4 +19,7 @@ backport-r335170-cdr.conf.diff
 backport-r335555-dnsmgr.conf.diff
 backport-r335556-cdr.conf.diff
 backport-r335603-dsp.conf.diff
-backport-r335719-dnsmgr.conf.patch
+backport-r335719-dnsmgr.conf.diff
+
+# Custom
+custom-iax.conf.diff

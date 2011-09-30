@@ -9,7 +9,7 @@
  static struct ast_netsock_list *netsock;
  static struct ast_netsock_list *outsock;		/*!< used if sourceaddress specified and bindaddr == INADDR_ANY */
  static int defaultsockfd = -1;
-@@ -13068,21 +13070,7 @@ static int set_config(const char *config
+@@ -13075,21 +13077,7 @@ static int set_config(const char *config
  		else if (!strcasecmp(v->name, "minregexpire")) 
  			min_reg_expire = atoi(v->value);
  		else if (!strcasecmp(v->name, "bindaddr")) {
@@ -32,7 +32,7 @@
  		} else if (!strcasecmp(v->name, "authdebug")) {
  			authdebug = ast_true(v->value);
  		} else if (!strcasecmp(v->name, "encryption")) {
-@@ -13271,16 +13259,15 @@ static int set_config(const char *config
+@@ -13278,16 +13266,15 @@ static int set_config(const char *config
  		network_change_event_unsubscribe();
  	}
  

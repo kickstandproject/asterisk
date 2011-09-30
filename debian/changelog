@@ -2,10 +2,11 @@ asterisk (1:1.8.7.0-1kickstand0+1) UNRELEASED; urgency=low
 
   * Initial release
   * Backports:
+    - r313528: Add 'description' field for CLI and Manager output
     - r335170: Parsing cdr.conf (issue: 0000028)
     - r335555: Parsing dnsmgr.conf
     - r335556: Parsing cdr.conf
     - r335603: Parsing dsp.conf
     - r335719: Parsing dnsmgr.conf
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Fri, 23 Sep 2011 20:02:05 -0400
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Fri, 30 Sep 2011 19:20:22 -0400

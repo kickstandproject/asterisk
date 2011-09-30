@@ -1,0 +1,289 @@
+--- a/channels/chan_dahdi.c
++++ b/channels/chan_dahdi.c
+@@ -988,6 +988,11 @@ struct dahdi_pvt {
+ 	 */
+ 	char context[AST_MAX_CONTEXT];
+ 	/*!
++	 * \brief A description for the channel configuration
++	 * \note The "description" string read in from chan_dahdi.conf
++	 */
++	char description[32];
++	/*!
+ 	 * \brief Saved context string.
+ 	 */
+ 	char defcontext[AST_MAX_CONTEXT];
+@@ -1288,6 +1293,7 @@ struct dahdi_pvt {
+ 	MEMBER(dahdi_pvt, manages_span_alarms, AST_DATA_BOOLEAN)		\
+ 	MEMBER(dahdi_pvt, use_smdi, AST_DATA_BOOLEAN)				\
+ 	MEMBER(dahdi_pvt, context, AST_DATA_STRING)				\
++	MEMBER(dahdi_pvt, description, AST_DATA_STRING)				\
+ 	MEMBER(dahdi_pvt, defcontext, AST_DATA_STRING)				\
+ 	MEMBER(dahdi_pvt, exten, AST_DATA_STRING)				\
+ 	MEMBER(dahdi_pvt, language, AST_DATA_STRING)				\
+@@ -12702,6 +12708,7 @@ static struct dahdi_pvt *mkintf(int chan
+ 		ast_copy_string(tmp->mohinterpret, conf->chan.mohinterpret, sizeof(tmp->mohinterpret));
+ 		ast_copy_string(tmp->mohsuggest, conf->chan.mohsuggest, sizeof(tmp->mohsuggest));
+ 		ast_copy_string(tmp->context, conf->chan.context, sizeof(tmp->context));
++		ast_copy_string(tmp->description, conf->chan.description, sizeof(tmp->description));
+ 		ast_copy_string(tmp->parkinglot, conf->chan.parkinglot, sizeof(tmp->parkinglot));
+ 		tmp->cid_ton = 0;
+ 		if (analog_lib_handles(tmp->sig, tmp->radio, tmp->oprmode)) {
+@@ -15033,8 +15040,8 @@ static int action_dahdirestart(struct ma
+ 
+ static char *dahdi_show_channels(struct ast_cli_entry *e, int cmd, struct ast_cli_args *a)
+ {
+-#define FORMAT "%7s %-10.10s %-15.15s %-10.10s %-20.20s %-10.10s %-10.10s\n"
+-#define FORMAT2 "%7s %-10.10s %-15.15s %-10.10s %-20.20s %-10.10s %-10.10s\n"
++#define FORMAT "%7s %-10.10s %-15.15s %-10.10s %-20.20s %-10.10s %-10.10s %-32.32s\n"
++#define FORMAT2 "%7s %-10.10s %-15.15s %-10.10s %-20.20s %-10.10s %-10.10s %-32.32s\n"
+ 	unsigned int targetnum = 0;
+ 	int filtertype = 0;
+ 	struct dahdi_pvt *tmp = NULL;
+@@ -15071,7 +15078,7 @@ static char *dahdi_show_channels(struct 
+ 		}
+ 	}
+ 
+-	ast_cli(a->fd, FORMAT2, "Chan", "Extension", "Context", "Language", "MOH Interpret", "Blocked", "State");
++	ast_cli(a->fd, FORMAT2, "Chan", "Extension", "Context", "Language", "MOH Interpret", "Blocked", "State", "Description");
+ 	ast_mutex_lock(&iflock);
+ 	for (tmp = iflist; tmp; tmp = tmp->next) {
+ 		if (filtertype) {
+@@ -15109,7 +15116,7 @@ static char *dahdi_show_channels(struct 
+ 
+ 		snprintf(statestr, sizeof(statestr), "%s", "In Service");
+ 
+-		ast_cli(a->fd, FORMAT, tmps, tmp->exten, tmp->context, tmp->language, tmp->mohinterpret, blockstr, statestr);
++		ast_cli(a->fd, FORMAT, tmps, tmp->exten, tmp->context, tmp->language, tmp->mohinterpret, blockstr, statestr, tmp->description);
+ 	}
+ 	ast_mutex_unlock(&iflock);
+ 	return CLI_SUCCESS;
+@@ -15145,6 +15152,7 @@ static char *dahdi_show_channel(struct a
+ 	for (tmp = iflist; tmp; tmp = tmp->next) {
+ 		if (tmp->channel == channel) {
+ 			ast_cli(a->fd, "Channel: %d\n", tmp->channel);
++			ast_cli(a->fd, "Description: %s\n", tmp->description);
+ 			ast_cli(a->fd, "File Descriptor: %d\n", tmp->subs[SUB_REAL].dfd);
+ 			ast_cli(a->fd, "Span: %d\n", tmp->span);
+ 			ast_cli(a->fd, "Extension: %s\n", tmp->exten);
+@@ -15877,6 +15885,7 @@ static int action_dahdishowchannels(stru
+ 					"Context: %s\r\n"
+ 					"DND: %s\r\n"
+ 					"Alarm: %s\r\n"
++					"Description: %s\r\n"
+ 					"%s"
+ 					"\r\n",
+ 					tmp->channel,
+@@ -15887,7 +15896,8 @@ static int action_dahdishowchannels(stru
+ 					tmp->sig,
+ 					tmp->context,
+ 					dahdi_dnd(tmp, -1) ? "Enabled" : "Disabled",
+-					alarm2str(alm), idText);
++					alarm2str(alm),
++					tmp->description, idText);
+ 			} else {
+ 				astman_append(s,
+ 					"Event: DAHDIShowChannels\r\n"
+@@ -15897,12 +15907,14 @@ static int action_dahdishowchannels(stru
+ 					"Context: %s\r\n"
+ 					"DND: %s\r\n"
+ 					"Alarm: %s\r\n"
++					"Description: %s\r\n"
+ 					"%s"
+ 					"\r\n",
+ 					tmp->channel, sig2str(tmp->sig), tmp->sig,
+ 					tmp->context,
+ 					dahdi_dnd(tmp, -1) ? "Enabled" : "Disabled",
+-					alarm2str(alm), idText);
++					alarm2str(alm),
++					tmp->description, idText);
+ 			}
+ 		}
+ 	}
+@@ -16813,6 +16825,8 @@ static int process_dahdi(struct dahdi_ch
+ 				confp->chan.dtmfrelax = 0;
+ 		} else if (!strcasecmp(v->name, "mailbox")) {
+ 			ast_copy_string(confp->chan.mailbox, v->value, sizeof(confp->chan.mailbox));
++		} else if (!strcasecmp(v->name, "description")) {
++			ast_copy_string(confp->chan.description, v->value, sizeof(confp->chan.description));
+ 		} else if (!strcasecmp(v->name, "hasvoicemail")) {
+ 			if (ast_true(v->value) && ast_strlen_zero(confp->chan.mailbox)) {
+ 				ast_copy_string(confp->chan.mailbox, cat, sizeof(confp->chan.mailbox));
+--- a/channels/chan_iax2.c
++++ b/channels/chan_iax2.c
+@@ -485,6 +485,7 @@ struct iax2_peer {
+ 	AST_DECLARE_STRING_FIELDS(
+ 		AST_STRING_FIELD(name);
+ 		AST_STRING_FIELD(username);
++		AST_STRING_FIELD(description);		/*!< Description of the peer */
+ 		AST_STRING_FIELD(secret);
+ 		AST_STRING_FIELD(dbsecret);
+ 		AST_STRING_FIELD(outkey);	    /*!< What key we use to talk to this peer */
+@@ -3758,6 +3759,7 @@ static char *handle_cli_iax2_show_peer(s
+ 		encmethods_to_str(peer->encmethods, encmethods);
+ 		ast_cli(a->fd, "\n\n");
+ 		ast_cli(a->fd, "  * Name       : %s\n", peer->name);
++		ast_cli(a->fd, "  Description  : %s\n", peer->description);
+ 		ast_cli(a->fd, "  Secret       : %s\n", ast_strlen_zero(peer->secret) ? "<Not set>" : "<Set>");
+ 		ast_cli(a->fd, "  Context      : %s\n", peer->context);
+  		ast_cli(a->fd, "  Parking lot  : %s\n", peer->parkinglot);
+@@ -6621,8 +6623,8 @@ static int __iax2_show_peers(int fd, int
+ 	int unmonitored_peers = 0;
+ 	struct ao2_iterator i;
+ 
+-#define FORMAT2 "%-15.15s  %-15.15s %s  %-15.15s  %-8s  %s %-10s\n"
+-#define FORMAT "%-15.15s  %-15.15s %s  %-15.15s  %-5d%s  %s %-10s\n"
++#define FORMAT2 "%-15.15s  %-15.15s %s  %-15.15s  %-8s  %s %-11s %-32.32s\n"
++#define FORMAT "%-15.15s  %-15.15s %s  %-15.15s  %-5d%s  %s %-11s %-32.32s\n"
+ 
+ 	struct iax2_peer *peer = NULL;
+ 	char name[256];
+@@ -6664,7 +6666,7 @@ static int __iax2_show_peers(int fd, int
+ 
+ 
+ 	if (!s)
+-		ast_cli(fd, FORMAT2, "Name/Username", "Host", "   ", "Mask", "Port", "   ", "Status");
++		ast_cli(fd, FORMAT2, "Name/Username", "Host", "   ", "Mask", "Port", "   ", "Status", "Description");
+ 
+ 	i = ao2_iterator_init(peers, 0);
+ 	for (peer = ao2_iterator_next(&i); peer;
+@@ -6710,7 +6712,8 @@ static int __iax2_show_peers(int fd, int
+ 				"Dynamic: %s\r\n"
+ 				"Trunk: %s\r\n"
+ 				"Encryption: %s\r\n"
+-				"Status: %s\r\n\r\n",
++				"Status: %s\r\n"
++				"Description: %s\r\n\r\n",
+ 				idtext,
+ 				name,
+ 				ast_sockaddr_stringify_addr(&peer->addr),
+@@ -6718,7 +6721,8 @@ static int __iax2_show_peers(int fd, int
+ 				ast_test_flag64(peer, IAX_DYNAMIC) ? "yes" : "no",
+ 				ast_test_flag64(peer, IAX_TRUNK) ? "yes" : "no",
+ 				peer->encmethods ? ast_str_buffer(encmethods) : "no",
+-				status);
++				status,
++				peer->description);
+ 		} else {
+ 			ast_cli(fd, FORMAT, name,
+ 				ast_sockaddr_stringify_addr(&peer->addr),
+@@ -6727,7 +6731,8 @@ static int __iax2_show_peers(int fd, int
+ 				ast_sockaddr_port(&peer->addr),
+ 				ast_test_flag64(peer, IAX_TRUNK) ? "(T)" : "   ",
+ 				peer->encmethods ? "(E)" : "   ",
+-				status);
++				status,
++				peer->description);
+ 		}
+ 		total_peers++;
+ 	}
+@@ -12355,6 +12360,8 @@ static struct iax2_peer *build_peer(cons
+ 				ast_string_field_set(peer, mohsuggest, v->value);
+ 			} else if (!strcasecmp(v->name, "dbsecret")) {
+ 				ast_string_field_set(peer, dbsecret, v->value);
++			} else if (!strcasecmp(v->name, "description")) {
++				ast_string_field_set(peer, description, v->value);
+ 			} else if (!strcasecmp(v->name, "trunk")) {
+ 				ast_set2_flag64(peer, ast_true(v->value), IAX_TRUNK);	
+ 				if (ast_test_flag64(peer, IAX_TRUNK) && !timer) {
+--- a/channels/chan_sip.c
++++ b/channels/chan_sip.c
+@@ -16157,7 +16157,7 @@ static char *_sip_show_peers(int fd, int
+ 	}
+ 
+ 	if (!s) /* Normal list */
+-		ast_cli(fd, FORMAT2, "Name/username", "Host", "Dyn", "Forcerport", "ACL", "Port", "Status", (realtimepeers ? "Realtime" : ""));
++		ast_cli(fd, FORMAT2, "Name/username", "Host", "Dyn", "Forcerport", "ACL", "Port", "Status", "Description", (realtimepeers ? "Realtime" : ""));
+ 	
+ 
+ 	i = ao2_iterator_init(peers, 0);
+@@ -16222,6 +16222,7 @@ static char *_sip_show_peers(int fd, int
+ 			ast_test_flag(&peer->flags[0], SIP_NAT_FORCE_RPORT) ? " N " : "   ",	/* NAT=yes? */
+ 			peer->ha ? " A " : "   ", 	/* permit/deny */
+ 			ast_sockaddr_isnull(&peer->addr) ? 0 : ast_sockaddr_port(&peer->addr), status,
++			peer->description ? peer->description : "",
+ 			realtimepeers ? (peer->is_realtime ? "Cached RT":"") : "");
+ 
+ 		if (!s)  {/* Normal CLI list */
+@@ -16231,6 +16232,7 @@ static char *_sip_show_peers(int fd, int
+ 			ast_test_flag(&peer->flags[0], SIP_NAT_FORCE_RPORT) ? " N " : "   ",	/* NAT=yes? */
+ 			peer->ha ? " A " : "   ",       /* permit/deny */
+ 			ast_sockaddr_isnull(&peer->addr) ? 0 : ast_sockaddr_port(&peer->addr), status,
++			peer->description ? peer->description : "",
+ 			realtimepeers ? (peer->is_realtime ? "Cached RT":"") : "");
+ 		} else {	/* Manager format */
+ 			/* The names here need to be the same as other channels */
+@@ -16247,7 +16249,8 @@ static char *_sip_show_peers(int fd, int
+ 			"TextSupport: %s\r\n"
+ 			"ACL: %s\r\n"
+ 			"Status: %s\r\n"
+-			"RealtimeDevice: %s\r\n\r\n",
++			"RealtimeDevice: %s\r\n"
++			"Description: %s\r\n\r\n",
+ 			idtext,
+ 			peer->name,
+ 			ast_sockaddr_isnull(&peer->addr) ? "-none-" : ast_sockaddr_stringify_fmt(&peer->addr, AST_SOCKADDR_STR_HOST),
+@@ -16258,7 +16261,8 @@ static char *_sip_show_peers(int fd, int
+ 			ast_test_flag(&peer->flags[1], SIP_PAGE2_TEXTSUPPORT) ? "yes" : "no",	/* TEXTSUPPORT=yes? */
+ 			peer->ha ? "yes" : "no",       /* permit/deny */
+ 			status,
+-			realtimepeers ? (peer->is_realtime ? "yes":"no") : "no");
++			realtimepeers ? (peer->is_realtime ? "yes":"no") : "no",
++			peer->description);
+ 		}
+ 		ao2_unlock(peer);
+ 		peer = peerarray[k] = unref_peer(peer, "toss iterator peer ptr");
+@@ -16845,6 +16849,7 @@ static char *_sip_show_peer(int type, in
+ 
+ 		ast_cli(fd, "\n\n");
+ 		ast_cli(fd, "  * Name       : %s\n", peer->name);
++		ast_cli(fd, "  Description  : %s\n", peer->description);
+ 		if (realtimepeers) {	/* Realtime is enabled */
+ 			ast_cli(fd, "  Realtime peer: %s\n", peer->is_realtime ? "Yes, cached" : "No");
+ 		}
+@@ -17062,7 +17067,8 @@ static char *_sip_show_peer(int type, in
+ 				astman_append(s, "ChanVariable: %s=%s\r\n", v->name, v->value);
+ 			}
+ 		}
+-		astman_append(s, "SIP-Use-Reason-Header : %s\n", (ast_test_flag(&peer->flags[1], SIP_PAGE2_Q850_REASON)) ? "Y" : "N");
++		astman_append(s, "SIP-Use-Reason-Header : %s\r\n", (ast_test_flag(&peer->flags[1], SIP_PAGE2_Q850_REASON)) ? "Y" : "N");
++		astman_append(s, "Description : %s\r\n", peer->description);
+ 
+ 		peer = unref_peer(peer, "sip_show_peer: unref_peer: done with peer");
+ 
+@@ -26407,6 +26413,7 @@ static void set_peer_defaults(struct sip
+ 		peer->call_limit=INT_MAX;
+ 	ast_string_field_set(peer, vmexten, default_vmexten);
+ 	ast_string_field_set(peer, secret, "");
++	ast_string_field_set(peer, description, "");
+ 	ast_string_field_set(peer, remotesecret, "");
+ 	ast_string_field_set(peer, md5secret, "");
+ 	ast_string_field_set(peer, cid_num, "");
+@@ -26651,6 +26658,8 @@ static struct sip_peer *build_peer(const
+ 				ast_string_field_set(peer, remotesecret, v->value);
+ 			} else if (!strcasecmp(v->name, "secret")) {
+ 				ast_string_field_set(peer, secret, v->value);
++			} else if (!strcasecmp(v->name, "description")) {
++				ast_string_field_set(peer, description, v->value);
+ 			} else if (!strcasecmp(v->name, "md5secret")) {
+ 				ast_string_field_set(peer, md5secret, v->value);
+ 			} else if (!strcasecmp(v->name, "auth")) {
+@@ -29395,7 +29404,8 @@ AST_TEST_DEFINE(test_sip_peers_get)
+ 	MEMBER(sip_peer, maxms, AST_DATA_MILLISECONDS)		\
+ 	MEMBER(sip_peer, qualifyfreq, AST_DATA_MILLISECONDS)	\
+ 	MEMBER(sip_peer, timer_t1, AST_DATA_MILLISECONDS)	\
+-	MEMBER(sip_peer, timer_b, AST_DATA_MILLISECONDS)
++	MEMBER(sip_peer, timer_b, AST_DATA_MILLISECONDS)	\
++	MEMBER(sip_peer, description, AST_DATA_STRING)
+ 
+ AST_DATA_STRUCTURE(sip_peer, DATA_EXPORT_SIP_PEER);
+ 
+--- a/channels/sip/include/sip.h
++++ b/channels/sip/include/sip.h
+@@ -1168,6 +1168,7 @@ struct sip_peer {
+ 	AST_DECLARE_STRING_FIELDS(
+ 		AST_STRING_FIELD(secret);       /*!< Password for inbound auth */
+ 		AST_STRING_FIELD(md5secret);    /*!< Password in MD5 */
++		AST_STRING_FIELD(description);	/*!< Description of this peer */
+ 		AST_STRING_FIELD(remotesecret); /*!< Remote secret (trunks, remote devices) */
+ 		AST_STRING_FIELD(context);      /*!< Default context for incoming calls */
+ 		AST_STRING_FIELD(subscribecontext); /*!< Default context for subscriptions */

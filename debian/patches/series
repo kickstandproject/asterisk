@@ -15,7 +15,6 @@ astgenkey-security
 2011.08.31-002.diff
 
 # Security
-security-AST-2011-012-1.8.diff
 
 # Backports
 backport-r313528-M000001.diff

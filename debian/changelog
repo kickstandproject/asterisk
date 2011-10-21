@@ -1,8 +1,6 @@
-asterisk (1:1.8.7.0-1kickstand0+1) UNRELEASED; urgency=low
+asterisk (1:1.8.7.1-1kickstand0+1) UNRELEASED; urgency=low
 
   * Initial release
-  * Security:
-    - AST-2011-012: Remote crash vulnerability in SIP	channel driver
   * Backports:
     - r313528: Add 'description' field for CLI and Manager output
     - r335170: Parsing cdr.conf (issue: 0000028)
@@ -11,4 +9,4 @@ asterisk (1:1.8.7.0-1kickstand0+1) UNRELEASED; urgency=low
     - r335603: Parsing dsp.conf
     - r335719: Parsing dnsmgr.conf
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Mon, 17 Oct 2011 18:31:25 -0400
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Fri, 21 Oct 2011 08:48:51 -0400

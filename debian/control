@@ -240,18 +240,9 @@ Description: Debugging symbols for Asterisk
  dump analysis. 
 
 Package: asterisk-config
-Depends: ${misc:Depends}, asterisk-config-sites (= ${source:Version}) | asterisk-config-sites-custom
-Recommends: asterisk
-Conflicts: asterisk-config-custom
-Architecture: all
-Description: Configuration files for Asterisk
- Asterisk is an Open Source PBX and telephony toolkit.
- .
- This package contains the default configuration files of Asterisk.
-
-Package: asterisk-config-sites
 Depends: ${misc:Depends}
 Recommends: asterisk
+Conflicts: asterisk-config-custom
 Architecture: all
 Description: Configuration files for Asterisk
  Asterisk is an Open Source PBX and telephony toolkit.

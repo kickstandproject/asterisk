@@ -22,12 +22,13 @@ Build-Depends: debhelper (>= 6.0.7),
  libiksemel-dev,
  libsnmp-dev,
  libc-client2007e-dev | libc-client2007b-dev,
- libgmime-2.0-2-dev | libgmime2-dev,
+ libgmime-2.4-dev | libgmime2-dev,
  libcap-dev (>= 1:2.16-4) | libcap2-dev,
  libspandsp-dev,
  libopenais-dev,
  libneon27-dev,
  libical-dev,
+ libsrtp0-dev,
  zlib1g-dev
 Standards-Version: 3.9.1
 Homepage: http://www.asterisk.org/

@@ -267,7 +267,7 @@
  			} else if (!strcasecmp(v->name, "md5secret")) {
  				ast_string_field_set(peer, md5secret, v->value);
  			} else if (!strcasecmp(v->name, "auth")) {
-@@ -29395,7 +29404,8 @@ AST_TEST_DEFINE(test_sip_peers_get)
+@@ -29401,7 +29410,8 @@ AST_TEST_DEFINE(test_sip_peers_get)
  	MEMBER(sip_peer, maxms, AST_DATA_MILLISECONDS)		\
  	MEMBER(sip_peer, qualifyfreq, AST_DATA_MILLISECONDS)	\
  	MEMBER(sip_peer, timer_t1, AST_DATA_MILLISECONDS)	\

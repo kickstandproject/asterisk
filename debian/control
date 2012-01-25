@@ -132,18 +132,6 @@ Description: ODBC voicemail storage support for the Asterisk PBX
  For more information about the Asterisk PBX, have a look at the Asterisk
  package.
 
-Package: asterisk-mp3
-Architecture: any
-Depends: asterisk (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: MP3 playback support for the Asterisk PBX (DUMMY)
- Asterisk is an Open Source PBX and telephony toolkit.
- .
- This package SHOULD provide support for playing MP3-encoded files in
- Asterisk. Due to build issues it is merely an empty package for now.
- .
- For more information about the Asterisk PBX, have a look at the Asterisk
- package.
-
 Package: asterisk-mysql
 Architecture: any
 Depends: asterisk (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}

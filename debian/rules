@@ -109,7 +109,7 @@ clean:
 
 SUBPACKS_EXTRA = dahdi \
 		 voicemail voicemail-odbcstorage voicemail-imapstorage \
-		 mysql mp3 mobile
+		 mysql mobile
 
 SUBPACKS_EXTRA_DIRS = $(SUBPACKS_EXTRA:%=$(CURDIR)/debian/asterisk-%)
 SUBPACKS_EXTRA_DIRS_MOD = $(SUBPACKS_EXTRA_DIRS:%=%/usr/lib/asterisk/modules)

@@ -145,20 +145,6 @@ Description: MySQL database protocol support for the Asterisk PBX
  For more information about the Asterisk PBX, have a look at the Asterisk
  package.
 
-Package: asterisk-mobile
-Architecture: any
-Depends: asterisk, ${shlibs:Depends}, ${misc:Depends}
-Description: Bluetooth phone support for the Asterisk PBX
- Asterisk is an Open Source PBX and telephony toolkit.
- .
- This package provides support for connecting Bluetooth devices to the
- Asterisk PBX. It allows you to:
-   * Send and receive PSTN calls and SMS messages over a Bluetooth phone.
-   * Use a Bluetooth handset as a local phone connected to your PBX.
- .
- For more information about the Asterisk PBX, have a look at the Asterisk
- package.
-
 Package: asterisk-doc
 Depends: ${misc:Depends}
 Recommends: asterisk

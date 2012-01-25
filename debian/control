@@ -64,23 +64,6 @@ Description: Open Source Private Branch Exchange (PBX)
  This is the main package that includes the Asterisk daemon and most channel
  drivers and applications.
 
-Package: asterisk-h323
-Architecture: any
-Depends: asterisk (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: H.323 protocol support for the Asterisk PBX
- Asterisk is an Open Source PBX and telephony toolkit.
- .
- This channel driver (chan_h323) provides support for the H.323 protocol
- for Asterisk. This is an implementation originally contributed by NuFone and
- nowdays maintained and distributed by Digium, Inc. Hence, it is considered
- the official H.323 chanel driver.
- .
- There is another H.323 channel implementations for Asterisk: chan_ooh323,
- distributed by Debian as asterisk-ooh323c.
- .
- For more information about the Asterisk PBX, have a look at the Asterisk
- package.
-
 Package: asterisk-dahdi
 Architecture: any
 Depends: asterisk (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, dahdi
@@ -145,22 +128,6 @@ Description: ODBC voicemail storage support for the Asterisk PBX
  This package includes an database-based voicemail storage: storing the
  voicemail in a database accessed through the ODBC interface. While more
  complex to set up, it may be useful in some settings.
- .
- For more information about the Asterisk PBX, have a look at the Asterisk
- package.
-
-Package: asterisk-ooh323
-Architecture: any
-Depends: asterisk (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: H.323 protocol support for the Asterisk PBX - ooH323c
- Asterisk is an Open Source PBX and telephony toolkit.
- .
- This channel driver (chan_ooh323c) provides support for the H.323 protocol
- for Asterisk. This is an independent implementation that does not depend
- on OpenH323, but may be less functional than the original chan_h323.
- .
- This is one of many H.323 channel implementations for Asterisk with other
- being chan_h323, distributed by Debian as asterisk-h323.
  .
  For more information about the Asterisk PBX, have a look at the Asterisk
  package.

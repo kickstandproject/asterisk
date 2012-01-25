@@ -132,19 +132,6 @@ Description: ODBC voicemail storage support for the Asterisk PBX
  For more information about the Asterisk PBX, have a look at the Asterisk
  package.
 
-Package: asterisk-mysql
-Architecture: any
-Depends: asterisk (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: MySQL database protocol support for the Asterisk PBX
- Asterisk is an Open Source PBX and telephony toolkit.
- .
- This package provides support for using a MySQL database to store
- configuration, call-detatils record, and also provides generic access to
- it from the dialplan.
- .
- For more information about the Asterisk PBX, have a look at the Asterisk
- package.
-
 Package: asterisk-doc
 Depends: ${misc:Depends}
 Recommends: asterisk

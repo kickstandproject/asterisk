@@ -25,6 +25,7 @@ backport-r335556.diff
 backport-r335603.diff
 backport-r335719.diff
 backport-r345735.diff
+backport-r352643.diff
 
 # Custom
 custom-iax.conf.diff

@@ -11,5 +11,6 @@ asterisk (1:1.8.7.1-1kickstand0+1) UNRELEASED; urgency=low
     - r335603: Parsing dsp.conf
     - r335719: Parsing dnsmgr.conf
     - r345735: Add #tryinclude statement (M0000029)
+    - r352643: Fix -Werror=unused-but-set-variable compiler error
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 19 Jan 2012 18:59:53 -0500
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Wed, 25 Jan 2012 17:39:41 -0500

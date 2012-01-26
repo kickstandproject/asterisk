@@ -187,6 +187,17 @@
  				if (ast_test_flag64(peer, IAX_TRUNK) && !timer) {
 --- a/channels/chan_sip.c
 +++ b/channels/chan_sip.c
+@@ -16116,8 +16116,8 @@ static char *_sip_show_peers(int fd, int
+ 	struct ao2_iterator i;
+ 	
+ /* the last argument is left-aligned, so we don't need a size anyways */
+-#define FORMAT2 "%-25.25s  %-39.39s %-3.3s %-10.10s %-3.3s %-8s %-10s %s\n"
+-#define FORMAT  "%-25.25s  %-39.39s %-3.3s %-3.3s %-3.3s %-8d %-10s %s\n"
++#define FORMAT2 "%-25.25s %-39.39s %-3.3s %-10.10s %-3.3s %-8s %-11s %-32.32s %s\n"
++#define FORMAT  "%-25.25s %-39.39s %-3.3s %-10.10s %-3.3s %-8d %-11s %-32.32s %s\n"
+ 
+ 	char name[256];
+ 	int total_peers = 0;
 @@ -16157,7 +16157,7 @@ static char *_sip_show_peers(int fd, int
  	}
  

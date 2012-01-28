@@ -261,7 +261,7 @@
  
  		peer = unref_peer(peer, "sip_show_peer: unref_peer: done with peer");
  
-@@ -26407,6 +26413,7 @@ static void set_peer_defaults(struct sip
+@@ -26414,6 +26420,7 @@ static void set_peer_defaults(struct sip
  		peer->call_limit=INT_MAX;
  	ast_string_field_set(peer, vmexten, default_vmexten);
  	ast_string_field_set(peer, secret, "");
@@ -269,7 +269,7 @@
  	ast_string_field_set(peer, remotesecret, "");
  	ast_string_field_set(peer, md5secret, "");
  	ast_string_field_set(peer, cid_num, "");
-@@ -26651,6 +26658,8 @@ static struct sip_peer *build_peer(const
+@@ -26658,6 +26665,8 @@ static struct sip_peer *build_peer(const
  				ast_string_field_set(peer, remotesecret, v->value);
  			} else if (!strcasecmp(v->name, "secret")) {
  				ast_string_field_set(peer, secret, v->value);
@@ -278,7 +278,7 @@
  			} else if (!strcasecmp(v->name, "md5secret")) {
  				ast_string_field_set(peer, md5secret, v->value);
  			} else if (!strcasecmp(v->name, "auth")) {
-@@ -29401,7 +29410,8 @@ AST_TEST_DEFINE(test_sip_peers_get)
+@@ -29408,7 +29417,8 @@ AST_TEST_DEFINE(test_sip_peers_get)
  	MEMBER(sip_peer, maxms, AST_DATA_MILLISECONDS)		\
  	MEMBER(sip_peer, qualifyfreq, AST_DATA_MILLISECONDS)	\
  	MEMBER(sip_peer, timer_t1, AST_DATA_MILLISECONDS)	\

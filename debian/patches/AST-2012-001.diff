@@ -1,6 +1,6 @@
 --- a/channels/chan_sip.c
 +++ b/channels/chan_sip.c
-@@ -28823,6 +28823,12 @@ static int setup_srtp(struct sip_srtp **
+@@ -28830,6 +28830,12 @@ static int setup_srtp(struct sip_srtp **
  
  static int process_crypto(struct sip_pvt *p, struct ast_rtp_instance *rtp, struct sip_srtp **srtp, const char *a)
  {

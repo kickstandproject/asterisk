@@ -148,3 +148,13 @@
  	<support_level>extended</support_level>
   ***/
   
+--- a/apps/app_minivm.c
++++ b/apps/app_minivm.c
+@@ -142,6 +142,7 @@
+  */
+ 
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+ 	<support_level>extended</support_level>
+  ***/
+ 

@@ -213,8 +213,10 @@ print-version:
 
 get-orig-source:
 	@@dh_testdir
-	@@[ -d ../tarballs/. ]||mkdir -p ../tarballs
-	@@echo Downloading $(FILENAME) from $(URL) ...
-	@@wget -nv -T10 -t3 -O ../tarballs/$(FILENAME) $(URL)
+	@@[ -d ../tarballs/. ] || mkdir -p ../tarballs
+	@@if [ ! -f ../tarballs/$(FILENAME) ]; then \
+		echo Downloading $(FILENAME) from $(URL) ...; \
+		wget -nv -T10 -t3 -O ../tarballs/$(FILENAME) $(URL); \
+	fi
 
 .PHONY: build build-arch build-indep clean binary-indep binary-arch binary install clean

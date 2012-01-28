@@ -68,8 +68,8 @@ Description: Open Source Private Branch Exchange (PBX)
 Package: asterisk-dahdi
 Architecture: any
 Depends: asterisk (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}, dahdi
-Breaks: asterisk (<<1.8.0)
-Replaces: asterisk (<<1.8.0)
+Breaks: asterisk (<<1:1.8.3.3)
+Replaces: asterisk (<<1:1.8.3.3)
 Description: DAHDI devices support for the Asterisk PBX
  Asterisk is an Open Source PBX and telephony toolkit.
  .
@@ -86,8 +86,8 @@ Architecture: any
 Depends: asterisk (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: asterisk-voicemail-storage
 Conflicts: asterisk-voicemail-storage
-Breaks: asterisk (<<1.8.0)
-Replaces: asterisk (<<1.8.0)
+Breaks: asterisk (<<1:1.8.3.3)
+Replaces: asterisk (<<1:1.8.3.3)
 Description: simple voicemail support for the Asterisk PBX
  Asterisk is an Open Source PBX and telephony toolkit.
  .
@@ -104,8 +104,8 @@ Architecture: any
 Depends: asterisk (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: asterisk-voicemail-storage
 Conflicts: asterisk-voicemail-storage
-Breaks: asterisk (<<1.8.0)
-Replaces: asterisk (<<1.8.0)
+Breaks: asterisk (<<1:1.8.3.3)
+Replaces: asterisk (<<1:1.8.3.3)
 Description: IMAP voicemail storage support for the Asterisk PBX
  Asterisk is an Open Source PBX and telephony toolkit.
  .
@@ -121,8 +121,8 @@ Architecture: any
 Depends: asterisk (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: asterisk-voicemail-storage
 Conflicts: asterisk-voicemail-storage
-Breaks: asterisk (<<1.8.0)
-Replaces: asterisk (<<1.8.0)
+Breaks: asterisk (<<1:1.8.3.3)
+Replaces: asterisk (<<1:1.8.3.3)
 Description: ODBC voicemail storage support for the Asterisk PBX
  Asterisk is an Open Source PBX and telephony toolkit.
  .
@@ -150,7 +150,6 @@ Depends: ${misc:Depends}
 Recommends: asterisk
 Section: devel
 Priority: extra
-Replaces: asterisk (<< 1:1.4.21.1~dfsg-1)
 Description: Development files for Asterisk
  Asterisk is an Open Source PBX and telephony toolkit.
  .

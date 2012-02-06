@@ -40,6 +40,7 @@ Vcs-Browser: https://github.com/kickstandproject/asterisk
 Package: asterisk
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, asterisk-config (= ${source:Version}), adduser, asterisk-core-sounds-en-gsm
+Breaks: asterisk (<<1:1.8.7.1)
 Provides: asterisk-1.8
 Recommends: sox, asterisk-voicemail | asterisk-voicemail-storage, asterisk-moh-opsound-wav
 Suggests: asterisk-doc, asterisk-dev, asterisk-dahdi

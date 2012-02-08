@@ -1,3 +1,2 @@
 etc/asterisk
-../ast_config/*.conf etc/asterisk/
-../ast_config/defaults/*.conf etc/asterisk/defaults/
+../ast_config/* etc/asterisk/

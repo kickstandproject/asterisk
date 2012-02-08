@@ -52,7 +52,11 @@ URL := http://downloads.asterisk.org/pub/telephony/asterisk/releases/asterisk-$(
 # fetch script that always returns an error.
 FETCH_ENV = PATH=$$PATH:$(CURDIR)/debian/dummyprogs
 
-config.status:
+configure: configure.ac
+	if [ ! -f configure_deborig ]; then mv configure configure_deborig; fi
+	./bootstrap.sh
+
+config.status: configure
 	dh_testdir
 
 	[ -f .version.debian_sav ] || cp -a .version .version.debian_sav
@@ -106,6 +110,7 @@ clean:
 	-$(RM) -f config.status menuselect.makeopts
 
 	[ ! -f .version.debian_sav ] || mv .version.debian_sav .version
+	if [ -f configure_deborig ]; then mv configure_deborig configure; fi
 
 	# these were generated while building
 	-$(RM) -f doc/core-en_US.xml utils/poll.c

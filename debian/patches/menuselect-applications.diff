@@ -158,3 +158,13 @@
  	<support_level>extended</support_level>
   ***/
  
+--- a/apps/app_festival.c
++++ b/apps/app_festival.c
+@@ -28,6 +28,7 @@
+  */
+ 
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+ 	<support_level>extended</support_level>
+  ***/
+ 

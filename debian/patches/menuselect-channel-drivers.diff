@@ -66,3 +66,14 @@
          <use>res_pktccops</use>
  	<support_level>extended</support_level>
   ***/
+
+--- a/channels/chan_jingle.c
++++ b/channels/chan_jingle.c
+@@ -28,6 +28,7 @@
+  */
+ 
+ /*** MODULEINFO
++	<defaultenabled>no</defaultenabled>
+ 	<depend>iksemel</depend>
+ 	<depend>res_jabber</depend>
+ 	<use>openssl</use>

@@ -18,4 +18,4 @@ asterisk (1:1.8.7.1-1kickstand0) UNRELEASED; urgency=low
       are properly quoted
     - r352643: Fix -Werror=unused-but-set-variable compiler error
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Wed, 08 Feb 2012 13:32:25 -0500
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Wed, 08 Feb 2012 14:53:01 -0500

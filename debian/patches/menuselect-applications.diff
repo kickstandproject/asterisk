@@ -1,3 +1,27 @@
+Description: Disable application modules by default
+ Below is a list of application modules we have disabled by default. Mostly
+ because we don't want to support the modules.
+ .
+ * app_adsiproj.so
+ * app_alarmreceiver.so
+ * app_dictate.so
+ * app_externalivr.so
+ * app_festival.so
+ * app_followme.so
+ * app_getcpeid.so
+ * app_ices.so
+ * app_image.so
+ * app_minivm.so
+ * app_morsecode.so
+ * app_mp3.so
+ * app_nbscat.so
+ * app_sendtext.so
+ * app_sms.so
+ * app_test.so
+ * app_url.so
+Forwarded: not-needed
+Author: Paul Belanger <paul.belanger@polybeacon.com>
+Last-Updated: 2012-02-08
 --- a/apps/app_adsiprog.c
 +++ b/apps/app_adsiprog.c
 @@ -26,6 +26,7 @@

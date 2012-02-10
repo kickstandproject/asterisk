@@ -187,7 +187,9 @@ binary-indep: install-indep
 	# should follow dh_fixperms; asterisk configurations may contain
 	# sensitive information, such as passwords
 	chmod -R 440 $(CURDIR)/debian/asterisk-config/etc/asterisk
+	chmod -R 440 $(CURDIR)/debian/asterisk-dahdi/etc/asterisk
 	find $(CURDIR)/debian/asterisk-config/etc/asterisk/ -type d -exec chmod 550 {} \;
+	find $(CURDIR)/debian/asterisk-dahdi/etc/asterisk/ -type d -exec chmod 550 {} \;
 	# remove package specific config files
 	rm $(CURDIR)/debian/asterisk-config/etc/asterisk/modules.conf.d/*
 	dh_installdeb -i

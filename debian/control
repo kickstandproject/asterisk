@@ -42,8 +42,8 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, asterisk-config (= ${source:Version}), adduser, asterisk-core-sounds-en-gsm
 Breaks: asterisk-h323 (<<1:1.8.7.1), asterisk-mobile (<<1:1.8.7.1), asterisk-mp3 (<<1:1.8.7.1), asterisk-mysql (<<1:1.8.7.1)
 Provides: asterisk-1.8
-Recommends: sox, asterisk-voicemail | asterisk-voicemail-storage, asterisk-moh-opsound-wav
-Suggests: asterisk-doc, asterisk-dev, asterisk-dahdi
+Recommends: sox, asterisk-moh-opsound-wav
+Suggests: asterisk-doc, asterisk-dev, asterisk-dahdi, asterisk-voicemail | asterisk-voicemail-storage
 Description: Open Source Private Branch Exchange (PBX)
  Asterisk is an Open Source PBX and telephony toolkit.  It is, in a
  sense, middleware between Internet and telephony channels on the bottom,

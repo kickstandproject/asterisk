@@ -210,8 +210,8 @@ binary-arch: install-arch
 	dh_fixperms -a
 	# should follow dh_fixperms; asterisk configurations may contain
 	# sensitive information, such as passwords
-	chmod -R 440 $(CURDIR)/debian/asterisk-dahdi/etc/asterisk
-	find $(CURDIR)/debian/asterisk-dahdi/etc/asterisk/ -type d -exec chmod 550 {} \;
+	chmod -R 440 $(CURDIR)/debian/asterisk-*/etc/asterisk
+	find $(CURDIR)/debian/asterisk-*/etc/asterisk/ -type d -exec chmod 550 {} \;
 	dh_installdeb -a
 	dh_shlibdeps -a
 	dh_gencontrol -a

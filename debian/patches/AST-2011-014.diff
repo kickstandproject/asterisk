@@ -1,3 +1,10 @@
+From: Terry Wilson <twilson@digium.com>
+Subject: Don't crash on INFO automon request with no channel
+ AST-2011-014. When automon was enabled in features.conf, it was possible
+ to crash Asterisk by sending an INFO request if no channel had been
+ created yet.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=347531
+Bug: https://issues.asterisk.org/jira/browse/ASTERISK-18805
 --- a/channels/chan_sip.c
 +++ b/channels/chan_sip.c
 @@ -18286,11 +18286,18 @@ static void handle_request_info(struct s

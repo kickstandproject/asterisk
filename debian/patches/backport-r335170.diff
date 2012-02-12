@@ -1,3 +1,6 @@
+From: Paul Belanger <pabelanger@digium.com>
+Subject: Iterate though cdr.conf setting
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=335170
 --- a/main/cdr.c
 +++ b/main/cdr.c
 @@ -1475,20 +1475,12 @@ static struct ast_cli_entry cli_status =

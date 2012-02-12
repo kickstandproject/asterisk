@@ -1,3 +1,7 @@
+From: Leif Madsen <lmadsen@digium.com>
+Subject: Add 'description' field for CLI and Manager output
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=313528
+Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
 --- a/channels/chan_dahdi.c
 +++ b/channels/chan_dahdi.c
 @@ -988,6 +988,11 @@ struct dahdi_pvt {

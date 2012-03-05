@@ -203,7 +203,7 @@ binary-arch: install-arch
 	dh_installman utils/*.1 doc/*.8 contrib/scripts/*.8
 	dh_installexamples -a
 	dh_installchangelogs ChangeLog -a
-	dh_installinit -a -- defaults 21
+	dh_installinit -a
 	dh_strip -a --dbg-package=asterisk-dbg
 	dh_link -a
 	dh_compress -a

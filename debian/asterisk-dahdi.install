@@ -4,4 +4,4 @@ usr/lib/asterisk/modules/app_meetme.so
 usr/lib/asterisk/modules/chan_dahdi.so
 usr/lib/asterisk/modules/codec_dahdi.so
 usr/lib/asterisk/modules/res_timing_dahdi.so
-../ast_config/modules.conf.d/01-dahdi.conf etc/asterisk/modules.conf.d/
+../ast_config/modules.conf.d/01dahdi.conf etc/asterisk/modules.conf.d/

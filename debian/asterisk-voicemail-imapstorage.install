@@ -1,2 +1,2 @@
 usr/lib/asterisk/modules/app_voicemail_imapstorage.so
-../ast_config/modules.conf.d/01-voicemail.conf etc/asterisk/modules.conf.d/
+../ast_config/modules.conf.d/01voicemail.conf etc/asterisk/modules.conf.d/

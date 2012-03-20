@@ -7,15 +7,15 @@ asterisk (1:1.8.7.1-1kickstand0) UNRELEASED; urgency=low
     - AST-2012-001: SRTP Video Remote Crash Vulnerability
   * Backports:
     - r313528: Add 'description' field for CLI and Manager output
-    - r335170: Parsing cdr.conf (issue: 0000028)
+    - r335170: Parsing cdr.conf
     - r335555: Parsing dnsmgr.conf
     - r335556: Parsing cdr.conf
     - r335603: Parsing dsp.conf
     - r335719: Parsing dnsmgr.conf
     - r339719: Fix regression in configure script for libpri capability checks
-    - r345735: Add #tryinclude statement (M0000029)
+    - r345735: Add #tryinclude statement
     - r350837: Ensure that all AC_LANG_PROGRAM calls in the configure script
       are properly quoted
     - r352643: Fix -Werror=unused-but-set-variable compiler error
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Wed, 08 Feb 2012 14:53:01 -0500
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Tue, 20 Mar 2012 15:07:34 -0400

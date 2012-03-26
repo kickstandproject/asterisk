@@ -1,0 +1,54 @@
+From: Paul Belanger <pabelanger@digium.com>
+Subject: Convert ast_verb() to ast_debug() and increase log level
+ Rather then flood the CLI with verbose messages, we've changed the level to
+ debug. This will help keep the CLI clean.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=360536
+--- a/main/dnsmgr.c
++++ b/main/dnsmgr.c
+@@ -115,7 +115,7 @@ void ast_dnsmgr_release(struct ast_dnsmg
+ 	AST_RWLIST_WRLOCK(&entry_list);
+ 	AST_RWLIST_REMOVE(&entry_list, entry, list);
+ 	AST_RWLIST_UNLOCK(&entry_list);
+-	ast_verb(4, "removing dns manager for '%s'\n", entry->name);
++	ast_debug(6, "removing dns manager for '%s'\n", entry->name);
+ 
+ 	ast_mutex_destroy(&entry->lock);
+ 	ast_free(entry);
+@@ -139,7 +139,7 @@ int ast_dnsmgr_lookup(const char *name, 
+ 		return 0;
+ 	}
+ 
+-	ast_verb(4, "doing dnsmgr_lookup for '%s'\n", name);
++	ast_debug(6, "doing dnsmgr_lookup for '%s'\n", name);
+ 
+ 	/* do a lookup now but add a manager so it will automagically get updated in the background */
+ 	ast_get_ip_or_srv(result, name, service);
+@@ -149,7 +149,7 @@ int ast_dnsmgr_lookup(const char *name, 
+ 		return 0;
+ 	}
+ 	
+-	ast_verb(3, "adding dns manager for '%s'\n", name);
++	ast_debug(6, "adding dns manager for '%s'\n", name);
+ 	*dnsmgr = ast_dnsmgr_get(name, result, service);
+ 	return !*dnsmgr;
+ }
+@@ -164,9 +164,7 @@ static int dnsmgr_refresh(struct ast_dns
+ 
+ 	ast_mutex_lock(&entry->lock);
+ 
+-	if (verbose) {
+-		ast_verb(3, "refreshing '%s'\n", entry->name);
+-	}
++	ast_debug(6, "refreshing '%s'\n", entry->name);
+ 
+ 	if (!ast_get_ip_or_srv(&tmp, entry->name, entry->service)) {
+ 		if (!ast_sockaddr_port(&tmp)) {
+@@ -235,7 +233,7 @@ static int refresh_list(const void *data
+ 		return -1;
+ 	}
+ 
+-	ast_verb(3, "Refreshing DNS lookups.\n");
++	ast_debug(6, "Refreshing DNS lookups.\n");
+ 	AST_RWLIST_RDLOCK(info->entries);
+ 	AST_RWLIST_TRAVERSE(info->entries, entry, list) {
+ 		if (info->regex_present && regexec(&info->filter, entry->name, 0, NULL, 0))

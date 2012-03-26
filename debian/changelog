@@ -17,5 +17,6 @@ asterisk (1:1.8.7.1-1kickstand0) UNRELEASED; urgency=low
     - r350837: Ensure that all AC_LANG_PROGRAM calls in the configure script
       are properly quoted
     - r352643: Fix -Werror=unused-but-set-variable compiler error
+    - r360536: Convert ast_verb() to ast_debug() and increase log level
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Tue, 20 Mar 2012 15:07:34 -0400
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Mon, 26 Mar 2012 18:23:42 -0400

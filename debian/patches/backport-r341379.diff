@@ -1,0 +1,52 @@
+From: Terry Wilson <twilson@digium.com>
+Subject: Don't use is_int() since it doesn't link well on all platforms
+ Just create an normal API function in strings.h that does the same thing
+ just to be safe.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=rev&rev=341379
+--- a/channels/chan_sip.c
++++ b/channels/chan_sip.c
+@@ -264,7 +264,6 @@ ASTERISK_FILE_VERSION(__FILE__, "$Revisi
+ #include "asterisk/cel.h"
+ #include "asterisk/data.h"
+ #include "asterisk/aoc.h"
+-#include "asterisk/pval.h"
+ #include "sip/include/sip.h"
+ #include "sip/include/globals.h"
+ #include "sip/include/config_parser.h"
+@@ -5291,7 +5290,7 @@ static int create_addr(struct sip_pvt *d
+ 		dialog->relatedpeer = ref_peer(peer, "create_addr: setting dialog's relatedpeer pointer");
+ 		unref_peer(peer, "create_addr: unref peer from find_peer hashtab lookup");
+ 		return res;
+-	} else if (is_int(peername)) {
++	} else if (ast_check_digits(peername)) {
+ 		/* Although an IPv4 hostname *could* be represented as a 32-bit integer, it is uncommon and
+ 		 * it makes dialing SIP/${EXTEN} for a peer that isn't defined resolve to an IP that is
+ 		 * almost certainly not intended. It is much better to just reject purely numeric hostnames */
+--- a/include/asterisk/strings.h
++++ b/include/asterisk/strings.h
+@@ -872,6 +872,25 @@ int __attribute__((format(printf, 3, 4))
+ )
+ 
+ /*!
++ * \brief Check if a string is only digits
++ *
++ * \retval 1 The string contains only digits
++ * \retval 0 The string contains non-digit characters
++ */
++AST_INLINE_API(
++int ast_check_digits(char *arg),
++{
++	char *s;
++	for (s=arg; *s; s++) {
++		if (*s < '0' || *s > '9') {
++			return 0;
++		}
++	}
++	return 1;
++}
++)
++
++/*!
+  * \brief Compute a hash value on a string
+  *
+  * This famous hash algorithm was written by Dan Bernstein and is

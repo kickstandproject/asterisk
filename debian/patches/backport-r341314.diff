@@ -1,0 +1,41 @@
+From: Terry Wilson <twilson@digium.com>
+Subject: Don't resolve numeric hosts or contact unresolved hosts
+ If a SIP dial string contains a numeric hostname that is not a peer name,
+ don't try to resolve it as it is unlikely that someone really means
+ Dial(SIP/0.0.4.26) when Dial(SIP/1050) is called. Also, make sure that
+ create_addr returns -1 if an address isn't resolved so that we don't
+ attempt to send SIP requests to an address that doesn't resolve.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=341314
+Bug: https://issues.asterisk.org/jira/browse/ASTERISK-17146
+Bug: https://issues.asterisk.org/jira/browse/ASTERISK-17716
+--- a/channels/chan_sip.c
++++ b/channels/chan_sip.c
+@@ -264,6 +264,7 @@ ASTERISK_FILE_VERSION(__FILE__, "$Revisi
+ #include "asterisk/cel.h"
+ #include "asterisk/data.h"
+ #include "asterisk/aoc.h"
++#include "asterisk/pval.h"
+ #include "sip/include/sip.h"
+ #include "sip/include/globals.h"
+ #include "sip/include/config_parser.h"
+@@ -5290,6 +5291,12 @@ static int create_addr(struct sip_pvt *d
+ 		dialog->relatedpeer = ref_peer(peer, "create_addr: setting dialog's relatedpeer pointer");
+ 		unref_peer(peer, "create_addr: unref peer from find_peer hashtab lookup");
+ 		return res;
++	} else if (is_int(peername)) {
++		/* Although an IPv4 hostname *could* be represented as a 32-bit integer, it is uncommon and
++		 * it makes dialing SIP/${EXTEN} for a peer that isn't defined resolve to an IP that is
++		 * almost certainly not intended. It is much better to just reject purely numeric hostnames */
++		ast_log(LOG_WARNING, "Purely numeric hostname (%s), and not a peer--rejecting!\n", peername);
++		return -1;
+ 	}
+ 
+ 	if (dialog_initialize_rtp(dialog)) {
+@@ -5328,6 +5335,7 @@ static int create_addr(struct sip_pvt *d
+ 
+ 		if (ast_sockaddr_resolve_first(&dialog->sa, hostn, 0)) {
+ 			ast_log(LOG_WARNING, "No such host: %s\n", peername);
++			return -1;
+ 		}
+ 
+ 		if (srv_ret > 0) {

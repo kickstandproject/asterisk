@@ -26,10 +26,11 @@ backport-r335556.diff
 backport-r335603.diff
 backport-r335719.diff
 backport-r339719.diff
+backport-r341314.diff
 backport-r345735.diff
 backport-r350837.diff
 backport-r352643.diff
+backport-r360536.diff
 
 # Custom
-backport-r360536.diff
 custom-iax.conf.diff

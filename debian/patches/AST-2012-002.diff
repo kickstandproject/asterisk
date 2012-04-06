@@ -1,0 +1,24 @@
+From: Matt Jordan <mjordan@digium.com>
+Subject: Fix remotely exploitable stack overrun in Milliwatt
+ Milliwatt is vulnerable to a remotely exploitable stack overrun when using
+ the 'o' option.  This occurs due to the milliwatt_generate function not
+ accounting for AST_FRIENDLY_OFFSET when calculating the maximum number of
+ samples it can put in the output buffer.
+ .
+ This patch resolves this issue by taking into account AST_FRIENDLY_OFFSET
+ when determining the maximum number of samples allowed.  Note that at no
+ point is remote code execution possible.  The data that is written into the
+ buffer is the pre-defined Milliwatt data, and not custom data.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=359656
+Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19541
+--- a/apps/app_milliwatt.c
++++ b/apps/app_milliwatt.c
+@@ -78,7 +78,7 @@ static void milliwatt_release(struct ast
+ static int milliwatt_generate(struct ast_channel *chan, void *data, int len, int samples)
+ {
+ 	unsigned char buf[AST_FRIENDLY_OFFSET + 640];
+-	const int maxsamples = ARRAY_LEN(buf);
++	const int maxsamples = ARRAY_LEN(buf) - (AST_FRIENDLY_OFFSET / sizeof(buf[0]));
+ 	int i, *indexp = (int *) data;
+ 	struct ast_frame wf = {
+ 		.frametype = AST_FRAME_VOICE,

@@ -1,0 +1,16 @@
+From: Paul Belanger <pabelanger@digium.com>
+Subject: Convert SRV lookup message to debug level
+ This helps clean up the Asterisk CLI by converting the log message from verbose
+ to debug
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=362043
+--- a/main/srv.c
++++ b/main/srv.c
+@@ -286,7 +286,7 @@ int ast_get_srv(struct ast_channel *chan
+ 		ast_copy_string(host, current->host, hostlen);
+ 		*port = current->port;
+ 		ast_free(current);
+-		ast_verb(4, "ast_get_srv: SRV lookup for '%s' mapped to host %s, port %d\n",
++		ast_debug(4, "ast_get_srv: SRV lookup for '%s' mapped to host %s, port %d\n",
+ 				    service, host, *port);
+ 	} else {
+ 		host[0] = '\0';

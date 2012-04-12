@@ -22,5 +22,6 @@ asterisk (1:1.8.7.1-1kickstand0) UNRELEASED; urgency=low
       are properly quoted
     - r352643: Fix -Werror=unused-but-set-variable compiler error
     - r360536: Convert ast_verb() to ast_debug() and increase log level
+    - r362043: Convert SRV lookup message to debug level
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 05 Apr 2012 21:24:28 -0400
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 12 Apr 2012 16:19:03 -0400

@@ -1,0 +1,80 @@
+--- a/main/cel.c
++++ b/main/cel.c
+@@ -289,11 +289,12 @@ AST_MUTEX_DEFINE_STATIC(reload_lock);
+ static int do_reload(void)
+ {
+ 	struct ast_config *config;
+-	const char *enabled_value;
+-	const char *val;
+-	int res = 0;
++	struct ast_variable *v;
+ 	struct ast_flags config_flags = { 0, };
+-	const char *s;
++
++	if ((config = ast_config_load2("cel.conf", "cel", config_flags)) == CONFIG_STATUS_FILEUNCHANGED) {
++		return 0;
++	}
+ 
+ 	ast_mutex_lock(&reload_lock);
+ 
+@@ -303,44 +304,30 @@ static int do_reload(void)
+ 	*cel_dateformat = '\0';
+ 	ao2_callback(appset, OBJ_UNLINK | OBJ_NODATA | OBJ_MULTIPLE, NULL, NULL);
+ 
+-	config = ast_config_load2("cel.conf", "cel", config_flags);
+-
+-	if (config == CONFIG_STATUS_FILEMISSING) {
+-		config = NULL;
+-		goto return_cleanup;
+-	}
+-
+-	if ((enabled_value = ast_variable_retrieve(config, "general", "enable"))) {
+-		cel_enabled = ast_true(enabled_value);
+-	}
+-
+-	if (!cel_enabled) {
+-		goto return_cleanup;
+-	}
+-
+-	/* get the date format for logging */
+-	if ((s = ast_variable_retrieve(config, "general", "dateformat"))) {
+-		ast_copy_string(cel_dateformat, s, sizeof(cel_dateformat));
+-	}
+-
+-	if ((val = ast_variable_retrieve(config, "general", "events"))) {
+-		parse_events(val);
++	if (config == CONFIG_STATUS_FILEMISSING || config == CONFIG_STATUS_FILEINVALID) {
++		ast_mutex_unlock(&reload_lock);
++		return 0;
+ 	}
+ 
+-	if ((val = ast_variable_retrieve(config, "general", "apps"))) {
+-		parse_apps(val);
++	for (v = ast_variable_browse(config, "general"); v; v = v->next) {
++		if (!strcasecmp(v->name, "enable")) {
++			cel_enabled = ast_true(v->value);
++		} else if (!strcasecmp(v->name, "dateformat")) {
++			/* get the date format for logging */
++			ast_copy_string(cel_dateformat, v->value, sizeof(cel_dateformat));
++		} else if (!strcasecmp(v->name, "events")) {
++			parse_events(v->value);
++		} else if (!strcasecmp(v->name, "apps")) {
++			parse_apps(v->value);
++		}
+ 	}
+ 
+-return_cleanup:
+ 	ast_verb(3, "CEL logging %sabled.\n", cel_enabled ? "en" : "dis");
+ 
+ 	ast_mutex_unlock(&reload_lock);
++	ast_config_destroy(config);
+ 
+-	if (config) {
+-		ast_config_destroy(config);
+-	}
+-
+-	return res;
++	return 0;
+ }
+ 
+ const char *ast_cel_get_type_name(enum ast_cel_event_type type)

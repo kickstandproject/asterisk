@@ -14,6 +14,7 @@ var/lib/asterisk/sounds/custom
 
 var/log/asterisk/cdr-csv
 var/log/asterisk/cdr-custom
+var/log/asterisk/cel-custom
 
 var/spool/asterisk/dictate
 var/spool/asterisk/meetme

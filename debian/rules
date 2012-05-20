@@ -222,6 +222,9 @@ print-version:
 	@@echo "Debian version:          $(DEBVERSION)"
 	@@echo "Upstream version:        $(UPVERSION)"
 
+print-filename:
+	@@echo "Filename:                $(FILENAME)"
+
 get-orig-source:
 	@@dh_testdir
 	@@[ -d ../tarballs/. ] || mkdir -p ../tarballs

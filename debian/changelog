@@ -7,6 +7,7 @@ asterisk (2:1.8.7.1-1kickstand0) UNRELEASED; urgency=low
     - AST-2012-001: SRTP Video Remote Crash Vulnerability
     - AST-2012-002: Remote Crash Vulnerability in Milliwatt Application
     - AST-2012-003: Stack Buffer Overflow in HTTP Manager
+    - AST-2012-006: Remote Crash Vulnerability in SIP Channel Driver
   * Backports:
     - r313528: Add 'description' field for CLI and Manager output
     - r335170: Parsing cdr.conf
@@ -24,4 +25,4 @@ asterisk (2:1.8.7.1-1kickstand0) UNRELEASED; urgency=low
     - r360536: Convert ast_verb() to ast_debug() and increase log level
     - r362043: Convert SRV lookup message to debug level
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Tue, 24 Apr 2012 11:20:46 -0400
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Sun, 01 Jul 2012 12:42:13 -0400

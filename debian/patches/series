@@ -19,6 +19,7 @@ AST-2011-014.diff
 AST-2012-001.diff
 AST-2012-002.diff
 AST-2012-003.diff
+AST-2012-006.diff
 
 # Backports
 backport-r313528.diff

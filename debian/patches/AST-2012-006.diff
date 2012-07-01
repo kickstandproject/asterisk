@@ -1,0 +1,24 @@
+From: Matt Jordan <mjordan@digium.com>
+Subject: Remote Crash Vulnerability in SIP Channel Driver
+ If Asterisk receives a SIP UPDATE request after a call has been terminated and
+ the channel has been destroyed but before the SIP dialog has been destroyed, a
+ condition exists where a connected line update would be attempted on a
+ non-existing channel.  This would cause Asterisk to crash.  The patch resolves
+ this by first ensuring that the SIP dialog has an owning channel before
+ attempting a connected line update.  If an UPDATE request is received and no
+ channel is associated with the dialog, a 481 response is sent.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=363106
+Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19770
+--- a/channels/chan_sip.c
++++ b/channels/chan_sip.c
+@@ -21566,6 +21566,10 @@ static int handle_request_update(struct
+ 		transmit_response(p, "501 Method Not Implemented", req);
+ 		return 0;
+ 	}
++	if (!p->owner) {
++		transmit_response(p, "481 Call/Transaction Does Not Exist", req);
++		return 0;
++	}
+ 	if (get_rpid(p, req)) {
+ 		struct ast_party_connected_line connected;
+ 		struct ast_set_party_connected_line update_connected;

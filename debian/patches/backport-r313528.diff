@@ -43,7 +43,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  	unsigned int targetnum = 0;
  	int filtertype = 0;
  	struct dahdi_pvt *tmp = NULL;
-@@ -15071,7 +15078,7 @@ static char *dahdi_show_channels(struct 
+@@ -15071,7 +15078,7 @@ static char *dahdi_show_channels(struct
  		}
  	}
  
@@ -52,7 +52,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  	ast_mutex_lock(&iflock);
  	for (tmp = iflist; tmp; tmp = tmp->next) {
  		if (filtertype) {
-@@ -15109,7 +15116,7 @@ static char *dahdi_show_channels(struct 
+@@ -15109,7 +15116,7 @@ static char *dahdi_show_channels(struct
  
  		snprintf(statestr, sizeof(statestr), "%s", "In Service");
  
@@ -265,7 +265,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  
  		peer = unref_peer(peer, "sip_show_peer: unref_peer: done with peer");
  
-@@ -26414,6 +26420,7 @@ static void set_peer_defaults(struct sip
+@@ -26418,6 +26424,7 @@ static void set_peer_defaults(struct sip
  		peer->call_limit=INT_MAX;
  	ast_string_field_set(peer, vmexten, default_vmexten);
  	ast_string_field_set(peer, secret, "");
@@ -273,7 +273,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  	ast_string_field_set(peer, remotesecret, "");
  	ast_string_field_set(peer, md5secret, "");
  	ast_string_field_set(peer, cid_num, "");
-@@ -26658,6 +26665,8 @@ static struct sip_peer *build_peer(const
+@@ -26662,6 +26669,8 @@ static struct sip_peer *build_peer(const
  				ast_string_field_set(peer, remotesecret, v->value);
  			} else if (!strcasecmp(v->name, "secret")) {
  				ast_string_field_set(peer, secret, v->value);
@@ -282,7 +282,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  			} else if (!strcasecmp(v->name, "md5secret")) {
  				ast_string_field_set(peer, md5secret, v->value);
  			} else if (!strcasecmp(v->name, "auth")) {
-@@ -29408,7 +29417,8 @@ AST_TEST_DEFINE(test_sip_peers_get)
+@@ -29412,7 +29421,8 @@ AST_TEST_DEFINE(test_sip_peers_get)
  	MEMBER(sip_peer, maxms, AST_DATA_MILLISECONDS)		\
  	MEMBER(sip_peer, qualifyfreq, AST_DATA_MILLISECONDS)	\
  	MEMBER(sip_peer, timer_t1, AST_DATA_MILLISECONDS)	\

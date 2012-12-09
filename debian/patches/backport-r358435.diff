@@ -19,3 +19,17 @@ Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=
  				case SQL_BINARY:
  				case SQL_VARBINARY:
  				case SQL_LONGVARBINARY:
+--- a/cel/cel_odbc.c
++++ b/cel/cel_odbc.c
+@@ -466,6 +466,11 @@ static void odbc_log(const struct ast_ev
+ 				case SQL_CHAR:
+ 				case SQL_VARCHAR:
+ 				case SQL_LONGVARCHAR:
++#ifdef HAVE_ODBC_WCHAR
++				case SQL_WCHAR:
++				case SQL_WVARCHAR:
++				case SQL_WLONGVARCHAR:
++#endif
+ 				case SQL_BINARY:
+ 				case SQL_VARBINARY:
+ 				case SQL_LONGVARBINARY:

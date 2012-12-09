@@ -1,0 +1,21 @@
+From: Jonathan Rose <jrose@digium.com>
+Subject: Add additional character type types to supported data types for cdr_adaptive_odbc
+ The reporter was uable to use varchar utf8_unicode_ci with cdr_adaptive_odbc, so
+ this patch adds those along with some other character types to the list of types
+ cdr_adaptive_odbc will work using the varchar conditions. The problem wasn't really
+ UTF8 characters as much as it was a failure to respond to the exact type that was
+ declared/in use on that database.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=357455
+Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19334
+--- a/cdr/cdr_adaptive_odbc.c
++++ b/cdr/cdr_adaptive_odbc.c
+@@ -421,6 +421,9 @@ static int odbc_log(struct ast_cdr *cdr)
+ 				case SQL_CHAR:
+ 				case SQL_VARCHAR:
+ 				case SQL_LONGVARCHAR:
++				case SQL_WCHAR:
++				case SQL_WVARCHAR:
++				case SQL_WLONGVARCHAR:
+ 				case SQL_BINARY:
+ 				case SQL_VARBINARY:
+ 				case SQL_LONGVARBINARY:

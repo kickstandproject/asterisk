@@ -1,0 +1,21 @@
+From: Terry Wilson <twilson@digium.com>
+Subject: Add detection for ODBC WCHAR fields
+ Without detecting these types, cel_odbc blows up when the character
+ set for the table is utf8. This also wraps cdr_adaptive_odbc's use of
+ those types in the HAVE_ODBC_WCHAR #ifdef seen in other parts of the
+ code.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=358435
+--- a/cdr/cdr_adaptive_odbc.c
++++ b/cdr/cdr_adaptive_odbc.c
+@@ -421,9 +421,11 @@ static int odbc_log(struct ast_cdr *cdr)
+ 				case SQL_CHAR:
+ 				case SQL_VARCHAR:
+ 				case SQL_LONGVARCHAR:
++#ifdef HAVE_ODBC_WCHAR
+ 				case SQL_WCHAR:
+ 				case SQL_WVARCHAR:
+ 				case SQL_WLONGVARCHAR:
++#endif
+ 				case SQL_BINARY:
+ 				case SQL_VARBINARY:
+ 				case SQL_LONGVARBINARY:

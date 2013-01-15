@@ -1,0 +1,25 @@
+From: Matt Jordan <mjordan@digium.com>
+Subject: Ensure that the Queue application tracks busy members in off nominal situations
+ There are a few code paths where the Queue application fails to count a paused
+ or in use queue member as being 'busy'.  This can cause callers to get stuck
+ in the Queue until a paused agent unpauses themselves.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=375450
+Bug: https://issues.asterisk.org/jira/browse/ASTERISK-20623
+--- a/apps/app_queue.c
++++ b/apps/app_queue.c
+@@ -3038,6 +3038,7 @@ static int ring_entry(struct queue_ent *
+ 		if (qe->chan->cdr)
+ 			ast_cdr_busy(qe->chan->cdr);
+ 		tmp->stillgoing = 0;
++		(*busies)++;
+ 		return 0;
+ 	}
+ 
+@@ -3046,6 +3047,7 @@ static int ring_entry(struct queue_ent *
+ 		if (qe->chan->cdr)
+ 			ast_cdr_busy(qe->chan->cdr);
+ 		tmp->stillgoing = 0;
++		(*busies)++;
+ 		return 0;
+ 	}
+ 	if (use_weight && compare_weight(qe->parent,tmp->member)) {

@@ -1,0 +1,2 @@
+extend-diff-ignore = ".gitreview"
+extend-diff-ignore = "README.rst"

@@ -1,0 +1,34 @@
+From: Russell Bryant <russell@russellbryant.net>
+Subject: Add queue_log_realtime_use_gmt option to logger.conf
+ Add an option that lets you specify that the timestamps going into the realtime
+ queue log should be in GMT instead of local time.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=380209
+--- a/main/logger.c
++++ b/main/logger.c
+@@ -91,6 +91,7 @@ static struct {
+ 	unsigned int queue_log:1;
+ 	unsigned int queue_log_to_file:1;
+ 	unsigned int queue_adaptive_realtime:1;
++	unsigned int queue_log_realtime_use_gmt:1;
+ } logfiles = { 1 };
+ 
+ static char hostname[MAXHOSTNAMELEN];
+@@ -374,6 +375,9 @@ static void init_logger_chain(int locked
+ 	if ((s = ast_variable_retrieve(cfg, "general", "queue_log_name"))) {
+ 		ast_copy_string(queue_log_name, s, sizeof(queue_log_name));
+ 	}
++	if ((s = ast_variable_retrieve(cfg, "general", "queue_log_realtime_use_gmt"))) {
++		logfiles.queue_log_realtime_use_gmt = ast_true(s);
++	}
+ 	if ((s = ast_variable_retrieve(cfg, "general", "exec_after_rotate"))) {
+ 		ast_copy_string(exec_after_rotate, s, sizeof(exec_after_rotate));
+ 	}
+@@ -504,7 +508,7 @@ void ast_queue_log(const char *queuename
+ 
+ 	if (ast_check_realtime("queue_log")) {
+ 		tv = ast_tvnow();
+-		ast_localtime(&tv, &tm, NULL);
++		ast_localtime(&tv, &tm, logfiles.queue_log_realtime_use_gmt ? "GMT" : NULL);
+ 		ast_strftime(time_str, sizeof(time_str), "%F %T.%6q", &tm);
+ 		va_start(ap, fmt);
+ 		vsnprintf(qlog_msg, sizeof(qlog_msg), fmt, ap);

@@ -29,5 +29,8 @@ asterisk (2:1.8.7.1-1kickstand0) UNRELEASED; urgency=low
     - r375450: Ensure that the Queue application tracks busy members in off
       nominal situations
     - r390209: Add queue_log_realtime_use_gmt option to logger.conf
+  * Backports from trunk:
+    - r331037: Log queue member name when state_interface is set for ADDMEMBER
+      and REMOVEMEMBER events
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Mon, 25 Feb 2013 23:25:17 -0500
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 28 Feb 2013 11:52:46 -0500

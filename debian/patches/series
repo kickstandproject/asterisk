@@ -42,6 +42,9 @@ backport-r369302.diff
 backport-r375450.diff
 backport-r380209.diff
 
+# Backports from trunk
+backport-r331037.diff
+
 # Custom
 custom-iax.conf.diff
 custom-cel-parsing.diff

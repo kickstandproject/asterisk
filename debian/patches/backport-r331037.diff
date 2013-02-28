@@ -1,0 +1,110 @@
+From: Kinsey Moore <kmoore@digium.com>
+Subject: Log queue member name when state_interface is set for ADDMEMBER and REMOVEMEMBER events
+ app_queue logs the events ADDMEMBER and REMOVEMEMBER with the agent field set
+ to the interface value rather than the membername value when a member is added
+ with a state_interface value set.  However all other member related queue
+ events are logged with the membername when a state_interface is set.  This
+ patch makes these fields optionally more consistent and correct.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=331037
+Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
+--- a/apps/app_queue.c
++++ b/apps/app_queue.c
+@@ -934,6 +934,9 @@ static struct ast_event_sub *device_stat
+ /*! \brief queues.conf [general] option */
+ static int update_cdr = 0;
+ 
++/*! \brief queues.conf [general] option */
++static int log_membername_as_agent = 0;
++
+ enum queue_result {
+ 	QUEUE_UNKNOWN = 0,
+ 	QUEUE_TIMEOUT = 1,
+@@ -1193,6 +1196,8 @@ static void update_realtime_members(stru
+ static int set_member_paused(const char *queuename, const char *interface, const char *reason, int paused);
+ 
+ static void queue_transfer_fixup(void *data, struct ast_channel *old_chan, struct ast_channel *new_chan); 
++
++static struct member *find_member_by_queuename_and_interface(const char *queuename, const char *interface);
+ /*! \brief sets the QUEUESTATUS channel variable */
+ static void set_queue_result(struct ast_channel *chan, enum queue_result res)
+ {
+@@ -2130,7 +2135,11 @@ static void rt_handle_member_record(stru
+ 			m->dead = 0;
+ 			m->realtime = 1;
+ 			ast_copy_string(m->rt_uniqueid, rt_uniqueid, sizeof(m->rt_uniqueid));
+-			ast_queue_log(q->name, "REALTIME", m->interface, "ADDMEMBER", "%s", "");
++			if (!log_membername_as_agent) {
++				ast_queue_log(q->name, "REALTIME", m->interface, "ADDMEMBER", "%s", "");
++			} else {
++				ast_queue_log(q->name, "REALTIME", m->membername, "ADDMEMBER", "%s", "");
++			}
+ 			ao2_link(q->members, m);
+ 			ao2_ref(m, -1);
+ 			m = NULL;
+@@ -2316,7 +2325,11 @@ static struct call_queue *find_queue_by_
+ 	mem_iter = ao2_iterator_init(q->members, 0);
+ 	while ((m = ao2_iterator_next(&mem_iter))) {
+ 		if (m->dead) {
+-			ast_queue_log(q->name, "REALTIME", m->interface, "REMOVEMEMBER", "%s", "");
++			if (ast_strlen_zero(m->membername) || !log_membername_as_agent) {
++				ast_queue_log(q->name, "REALTIME", m->interface, "REMOVEMEMBER", "%s", "");
++			} else {
++				ast_queue_log(q->name, "REALTIME", m->membername, "REMOVEMEMBER", "%s", "");
++			}
+ 			ao2_unlink(q->members, m);
+ 			q->membercount--;
+ 		}
+@@ -2442,7 +2455,11 @@ static void update_realtime_members(stru
+ 	mem_iter = ao2_iterator_init(q->members, 0);
+ 	while ((m = ao2_iterator_next(&mem_iter))) {
+ 		if (m->dead) {
+-			ast_queue_log(q->name, "REALTIME", m->interface, "REMOVEMEMBER", "%s", "");
++			if (ast_strlen_zero(m->membername) || !log_membername_as_agent) {
++				ast_queue_log(q->name, "REALTIME", m->interface, "REMOVEMEMBER", "%s", "");
++			} else {
++				ast_queue_log(q->name, "REALTIME", m->membername, "REMOVEMEMBER", "%s", "");
++			}
+ 			ao2_unlink(q->members, m);
+ 			q->membercount--;
+ 		}
+@@ -5643,9 +5660,17 @@ static int rqm_exec(struct ast_channel *
+ 
+ 	ast_debug(1, "queue: %s, member: %s\n", args.queuename, args.interface);
+ 
++	if (log_membername_as_agent) {
++		mem = find_member_by_queuename_and_interface(args.queuename, args.interface);
++	}
++
+ 	switch (remove_from_queue(args.queuename, args.interface)) {
+ 	case RES_OKAY:
+-		ast_queue_log(args.queuename, chan->uniqueid, args.interface, "REMOVEMEMBER", "%s", "");
++		if (!mem || ast_strlen_zero(mem->membername) || !log_membername_as_agent) {
++			ast_queue_log(args.queuename, chan->uniqueid, args.interface, "REMOVEMEMBER", "%s", "");
++		} else {
++			ast_queue_log(args.queuename, chan->uniqueid, mem->membername, "REMOVEMEMBER", "%s", "");
++		}
+ 		ast_log(LOG_NOTICE, "Removed interface '%s' from queue '%s'\n", args.interface, args.queuename);
+ 		pbx_builtin_setvar_helper(chan, "RQMSTATUS", "REMOVED");
+ 		res = 0;
+@@ -5675,6 +5700,8 @@ static int aqm_exec(struct ast_channel *
+ {
+ 	int res=-1;
+ 	char *parse, *temppos = NULL;
++	struct member *mem = NULL;
++
+ 	AST_DECLARE_APP_ARGS(args,
+ 		AST_APP_ARG(queuename);
+ 		AST_APP_ARG(interface);
+@@ -5710,7 +5737,11 @@ static int aqm_exec(struct ast_channel *
+ 
+ 	switch (add_to_queue(args.queuename, args.interface, args.membername, penalty, 0, queue_persistent_members, args.state_interface)) {
+ 	case RES_OKAY:
+-		ast_queue_log(args.queuename, chan->uniqueid, args.interface, "ADDMEMBER", "%s", "");
++		if (ast_strlen_zero(args.membername) || !log_membername_as_agent) {
++			ast_queue_log(args.queuename, chan->uniqueid, args.interface, "ADDMEMBER", "%s", "");
++		} else {
++			ast_queue_log(args.queuename, chan->uniqueid, args.membername, "ADDMEMBER", "%s", "");
++		}
+ 		ast_log(LOG_NOTICE, "Added interface '%s' to queue '%s'\n", args.interface, args.queuename);
+ 		pbx_builtin_setvar_helper(chan, "AQMSTATUS", "ADDED");
+ 		res = 0;

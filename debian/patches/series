@@ -28,6 +28,7 @@ backport-r359706.diff
 backport-r363106.diff
 backport-r369302.diff
 backport-r375450.diff
+backport-r378663.diff
 
 # Backports from trunk
 backport-r313528.diff

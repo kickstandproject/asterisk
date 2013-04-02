@@ -18,6 +18,8 @@ asterisk (2:1.8.7.1-1kickstand0) UNRELEASED; urgency=low
       from invalid domain
     - r375450: Ensure that the Queue application tracks busy members in off
       nominal situations
+    - r378663: app_queue: Fix multiple calls to a queue member that is in only
+      one queue
   * Backports from trunk:
     - r313528: Add 'description' field for CLI and Manager output
     - r331037: Log queue member name when state_interface is set for ADDMEMBER
@@ -33,4 +35,4 @@ asterisk (2:1.8.7.1-1kickstand0) UNRELEASED; urgency=low
     - r362043: Convert SRV lookup message to debug level
     - r390209: Add queue_log_realtime_use_gmt option to logger.conf
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Tue, 02 Apr 2013 14:46:29 -0400
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Tue, 02 Apr 2013 15:34:00 -0400

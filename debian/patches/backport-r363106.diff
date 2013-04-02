@@ -11,7 +11,7 @@ Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=
 Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19770
 --- a/channels/chan_sip.c
 +++ b/channels/chan_sip.c
-@@ -21566,6 +21566,10 @@ static int handle_request_update(struct
+@@ -21574,6 +21574,10 @@ static int handle_request_update(struct
  		transmit_response(p, "501 Method Not Implemented", req);
  		return 0;
  	}

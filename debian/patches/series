@@ -14,36 +14,34 @@ menuselect-call-detail-recording.diff
 menuselect-channel-drivers.diff
 menuselect-resource-modules.diff
 
-# Security
-AST-2011-014.diff
-AST-2012-001.diff
-AST-2012-002.diff
-AST-2012-003.diff
-AST-2012-006.diff
+# Backports from branches/1.8
+backport-r339719.diff
+backport-r341314.diff
+backport-r347531.diff
+backport-r350837.diff
+backport-r351504.diff
+backport-r352643.diff
+backport-r357455.diff
+backport-r358435.diff
+backport-r359656.diff
+backport-r359706.diff
+backport-r363106.diff
+backport-r369302.diff
+backport-r375450.diff
 
-# Backports
+# Backports from trunk
 backport-r313528.diff
+backport-r331037.diff
 backport-r335170.diff
 backport-r335555.diff
 backport-r335556.diff
 backport-r335603.diff
 backport-r335719.diff
-backport-r339719.diff
-backport-r341314.diff
 backport-r341379.diff
 backport-r345735.diff
-backport-r350837.diff
-backport-r352643.diff
-backport-r357455.diff
-backport-r358435.diff
 backport-r360536.diff
 backport-r362043.diif
-backport-r369302.diff
-backport-r375450.diff
 backport-r380209.diff
-
-# Backports from trunk
-backport-r331037.diff
 
 # Custom
 custom-iax.conf.diff

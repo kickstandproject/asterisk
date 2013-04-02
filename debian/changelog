@@ -8,29 +8,29 @@ asterisk (2:1.8.7.1-1kickstand0) UNRELEASED; urgency=low
     - AST-2012-002: Remote Crash Vulnerability in Milliwatt Application
     - AST-2012-003: Stack Buffer Overflow in HTTP Manager
     - AST-2012-006: Remote Crash Vulnerability in SIP Channel Driver
-  * Backports:
+  * Backports from branches/1.8:
+    - r339719: Fix regression in configure script for libpri capability checks
+    - r341314: Don't resolve numeric hosts or contact unresolved hosts
+    - r350837: Ensure that all AC_LANG_PROGRAM calls in the configure script
+      are properly quoted
+    - r352643: Fix -Werror=unused-but-set-variable compiler error
+    - r369302: Be more consistent with the return code for requests received
+      from invalid domain
+    - r375450: Ensure that the Queue application tracks busy members in off
+      nominal situations
+  * Backports from trunk:
     - r313528: Add 'description' field for CLI and Manager output
+    - r331037: Log queue member name when state_interface is set for ADDMEMBER
+      and REMOVEMEMBER events
     - r335170: Parsing cdr.conf
     - r335555: Parsing dnsmgr.conf
     - r335556: Parsing cdr.conf
     - r335603: Parsing dsp.conf
     - r335719: Parsing dnsmgr.conf
-    - r339719: Fix regression in configure script for libpri capability checks
-    - r341314: Don't resolve numeric hosts or contact unresolved hosts
     - r341379: Don't use is_int() since it doesn't link well on all platforms
     - r345735: Add #tryinclude statement
-    - r350837: Ensure that all AC_LANG_PROGRAM calls in the configure script
-      are properly quoted
-    - r352643: Fix -Werror=unused-but-set-variable compiler error
     - r360536: Convert ast_verb() to ast_debug() and increase log level
     - r362043: Convert SRV lookup message to debug level
-    - r369302: Be more consistent with the return code for requests received
-      from invalid domain
-    - r375450: Ensure that the Queue application tracks busy members in off
-      nominal situations
     - r390209: Add queue_log_realtime_use_gmt option to logger.conf
-  * Backports from trunk:
-    - r331037: Log queue member name when state_interface is set for ADDMEMBER
-      and REMOVEMEMBER events
 
- -- Paul Belanger <paul.belanger@polybeacon.com>  Thu, 28 Feb 2013 11:52:46 -0500
+ -- Paul Belanger <paul.belanger@polybeacon.com>  Tue, 02 Apr 2013 14:46:29 -0400

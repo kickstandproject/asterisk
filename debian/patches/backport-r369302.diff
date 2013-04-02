@@ -7,7 +7,7 @@ Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=
 Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19601
 --- a/channels/chan_sip.c
 +++ b/channels/chan_sip.c
-@@ -22096,8 +22096,6 @@ static int handle_request_invite(struct
+@@ -22091,8 +22091,6 @@ static int handle_request_invite(struct
  				}
  			/* INTENTIONAL FALL THROUGH */
  			case SIP_GET_DEST_EXTEN_NOT_FOUND:
@@ -16,7 +16,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19601
  				{
  					char *decoded_exten = ast_strdupa(p->exten);
  					transmit_response_reliable(p, "404 Not Found", req);
-@@ -22106,6 +22104,10 @@ static int handle_request_invite(struct
+@@ -22101,6 +22099,10 @@ static int handle_request_invite(struct
  						" '%s' rejected because extension not found in context '%s'.\n",
  						S_OR(p->username, p->peername), ast_sockaddr_stringify(&p->recv), decoded_exten, p->context);
  				}

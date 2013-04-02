@@ -191,7 +191,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  				if (ast_test_flag64(peer, IAX_TRUNK) && !timer) {
 --- a/channels/chan_sip.c
 +++ b/channels/chan_sip.c
-@@ -16116,8 +16116,8 @@ static char *_sip_show_peers(int fd, int
+@@ -16124,8 +16124,8 @@ static char *_sip_show_peers(int fd, int
  	struct ao2_iterator i;
  	
  /* the last argument is left-aligned, so we don't need a size anyways */
@@ -202,7 +202,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  
  	char name[256];
  	int total_peers = 0;
-@@ -16157,7 +16157,7 @@ static char *_sip_show_peers(int fd, int
+@@ -16165,7 +16165,7 @@ static char *_sip_show_peers(int fd, int
  	}
  
  	if (!s) /* Normal list */
@@ -211,7 +211,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  	
  
  	i = ao2_iterator_init(peers, 0);
-@@ -16222,6 +16222,7 @@ static char *_sip_show_peers(int fd, int
+@@ -16230,6 +16230,7 @@ static char *_sip_show_peers(int fd, int
  			ast_test_flag(&peer->flags[0], SIP_NAT_FORCE_RPORT) ? " N " : "   ",	/* NAT=yes? */
  			peer->ha ? " A " : "   ", 	/* permit/deny */
  			ast_sockaddr_isnull(&peer->addr) ? 0 : ast_sockaddr_port(&peer->addr), status,
@@ -219,7 +219,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  			realtimepeers ? (peer->is_realtime ? "Cached RT":"") : "");
  
  		if (!s)  {/* Normal CLI list */
-@@ -16231,6 +16232,7 @@ static char *_sip_show_peers(int fd, int
+@@ -16239,6 +16240,7 @@ static char *_sip_show_peers(int fd, int
  			ast_test_flag(&peer->flags[0], SIP_NAT_FORCE_RPORT) ? " N " : "   ",	/* NAT=yes? */
  			peer->ha ? " A " : "   ",       /* permit/deny */
  			ast_sockaddr_isnull(&peer->addr) ? 0 : ast_sockaddr_port(&peer->addr), status,
@@ -227,7 +227,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  			realtimepeers ? (peer->is_realtime ? "Cached RT":"") : "");
  		} else {	/* Manager format */
  			/* The names here need to be the same as other channels */
-@@ -16247,7 +16249,8 @@ static char *_sip_show_peers(int fd, int
+@@ -16255,7 +16257,8 @@ static char *_sip_show_peers(int fd, int
  			"TextSupport: %s\r\n"
  			"ACL: %s\r\n"
  			"Status: %s\r\n"
@@ -237,7 +237,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  			idtext,
  			peer->name,
  			ast_sockaddr_isnull(&peer->addr) ? "-none-" : ast_sockaddr_stringify_fmt(&peer->addr, AST_SOCKADDR_STR_HOST),
-@@ -16258,7 +16261,8 @@ static char *_sip_show_peers(int fd, int
+@@ -16266,7 +16269,8 @@ static char *_sip_show_peers(int fd, int
  			ast_test_flag(&peer->flags[1], SIP_PAGE2_TEXTSUPPORT) ? "yes" : "no",	/* TEXTSUPPORT=yes? */
  			peer->ha ? "yes" : "no",       /* permit/deny */
  			status,
@@ -247,7 +247,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  		}
  		ao2_unlock(peer);
  		peer = peerarray[k] = unref_peer(peer, "toss iterator peer ptr");
-@@ -16845,6 +16849,7 @@ static char *_sip_show_peer(int type, in
+@@ -16853,6 +16857,7 @@ static char *_sip_show_peer(int type, in
  
  		ast_cli(fd, "\n\n");
  		ast_cli(fd, "  * Name       : %s\n", peer->name);
@@ -255,7 +255,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  		if (realtimepeers) {	/* Realtime is enabled */
  			ast_cli(fd, "  Realtime peer: %s\n", peer->is_realtime ? "Yes, cached" : "No");
  		}
-@@ -17062,7 +17067,8 @@ static char *_sip_show_peer(int type, in
+@@ -17070,7 +17075,8 @@ static char *_sip_show_peer(int type, in
  				astman_append(s, "ChanVariable: %s=%s\r\n", v->name, v->value);
  			}
  		}
@@ -265,7 +265,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  
  		peer = unref_peer(peer, "sip_show_peer: unref_peer: done with peer");
  
-@@ -26418,6 +26424,7 @@ static void set_peer_defaults(struct sip
+@@ -26428,6 +26434,7 @@ static void set_peer_defaults(struct sip
  		peer->call_limit=INT_MAX;
  	ast_string_field_set(peer, vmexten, default_vmexten);
  	ast_string_field_set(peer, secret, "");
@@ -273,7 +273,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  	ast_string_field_set(peer, remotesecret, "");
  	ast_string_field_set(peer, md5secret, "");
  	ast_string_field_set(peer, cid_num, "");
-@@ -26662,6 +26669,8 @@ static struct sip_peer *build_peer(const
+@@ -26672,6 +26679,8 @@ static struct sip_peer *build_peer(const
  				ast_string_field_set(peer, remotesecret, v->value);
  			} else if (!strcasecmp(v->name, "secret")) {
  				ast_string_field_set(peer, secret, v->value);
@@ -282,7 +282,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-19076
  			} else if (!strcasecmp(v->name, "md5secret")) {
  				ast_string_field_set(peer, md5secret, v->value);
  			} else if (!strcasecmp(v->name, "auth")) {
-@@ -29412,7 +29421,8 @@ AST_TEST_DEFINE(test_sip_peers_get)
+@@ -29422,7 +29431,8 @@ AST_TEST_DEFINE(test_sip_peers_get)
  	MEMBER(sip_peer, maxms, AST_DATA_MILLISECONDS)		\
  	MEMBER(sip_peer, qualifyfreq, AST_DATA_MILLISECONDS)	\
  	MEMBER(sip_peer, timer_t1, AST_DATA_MILLISECONDS)	\

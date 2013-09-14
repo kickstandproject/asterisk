@@ -1,0 +1,54 @@
+--- a/channels/chan_sip.c
++++ b/channels/chan_sip.c
+@@ -5088,8 +5088,10 @@ static int dialog_initialize_rtp(struct
+  */
+ static int create_addr_from_peer(struct sip_pvt *dialog, struct sip_peer *peer)
+ {
++	struct sip_proxy *outboundproxy;
+ 	struct sip_auth_container *credentials;
+ 
++
+ 	/* this checks that the dialog is contacting the peer on a valid
+ 	 * transport type based on the peers transport configuration,
+ 	 * otherwise, this function bails out */
+@@ -5097,12 +5099,16 @@ static int create_addr_from_peer(struct
+ 		return -1;
+ 	copy_socket_data(&dialog->socket, &peer->socket);
+ 
+-	if (!(ast_sockaddr_isnull(&peer->addr) && ast_sockaddr_isnull(&peer->defaddr)) &&
++	if ((outboundproxy = obproxy_get(dialog, peer))) {
++		dialog->sa = outboundproxy->ip;
++		dialog->recv = dialog->sa;
++	} else if (!(ast_sockaddr_isnull(&peer->addr) && ast_sockaddr_isnull(&peer->defaddr)) &&
+ 	    (!peer->maxms || ((peer->lastms >= 0)  && (peer->lastms <= peer->maxms)))) {
+ 		dialog->sa = ast_sockaddr_isnull(&peer->addr) ? peer->defaddr : peer->addr;
+ 		dialog->recv = dialog->sa;
+-	} else
++	} else {
+ 		return -1;
++	}
+ 
+ 	/* XXX TODO: get flags directly from peer only as they are needed using dialog->relatedpeer */
+ 	ast_copy_flags(&dialog->flags[0], &peer->flags[0], SIP_FLAGS_TO_COPY);
+@@ -5311,6 +5317,10 @@ static int create_addr(struct sip_pvt *d
+ 	if (addr) {
+ 		/* This address should be updated using dnsmgr */
+ 		ast_sockaddr_copy(&dialog->sa, addr);
++	} else if (dialog->outboundproxy) {
++		dialog->sa = dialog->outboundproxy->ip;
++		dialog->recv = dialog->sa;
++		ast_string_field_set(dialog, tohost, peername);
+ 	} else {
+ 
+ 		/* Let's see if we can find the host in DNS. First try DNS SRV records,
+@@ -27095,7 +27105,9 @@ static struct sip_peer *build_peer(const
+ 		}
+ 	}
+ 
+-	if (srvlookup && peer->dnsmgr == NULL) {
++	if (srvlookup && obproxy_get(NULL, peer)) {
++		ast_string_field_set(peer, tohost, srvlookup);
++	} else if (srvlookup && peer->dnsmgr == NULL) {
+ 		char transport[MAXHOSTNAMELEN];
+ 		char _srvlookup[MAXHOSTNAMELEN];
+ 		char *params;

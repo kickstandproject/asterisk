@@ -47,3 +47,4 @@ backport-r380209.diff
 # Custom
 custom-iax.conf.diff
 custom-cel-parsing.diff
+test.diff

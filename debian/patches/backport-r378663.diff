@@ -21,7 +21,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-16115
  	char rt_uniqueid[80];                /*!< Unique id of realtime member entry */
  };
  
-@@ -2999,6 +3000,112 @@ static char *vars2manager(struct ast_cha
+@@ -2988,6 +2989,112 @@ static char *vars2manager(struct ast_cha
  	return vars;
  }
  
@@ -134,7 +134,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-16115
  /*! 
   * \brief Part 2 of ring_one
   *
-@@ -3022,42 +3129,15 @@ static int ring_entry(struct queue_ent *
+@@ -3011,42 +3118,15 @@ static int ring_entry(struct queue_ent *
  	const char *macrocontext, *macroexten;
  
  	/* on entry here, we know that tmp->chan == NULL */
@@ -182,7 +182,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-16115
  
  	ast_copy_string(tech, tmp->interface, sizeof(tech));
  	if ((location = strchr(tech, '/')))
-@@ -3068,17 +3148,18 @@ static int ring_entry(struct queue_ent *
+@@ -3057,17 +3137,18 @@ static int ring_entry(struct queue_ent *
  	/* Request the peer */
  	tmp->chan = ast_request(tech, qe->chan->nativeformats, qe->chan, location, &status);
  	if (!tmp->chan) {			/* If we can't, just go on to the next call */
@@ -207,7 +207,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-16115
  		return 0;
  	}
  
-@@ -3156,10 +3237,12 @@ static int ring_entry(struct queue_ent *
+@@ -3145,10 +3226,12 @@ static int ring_entry(struct queue_ent *
  		ast_channel_unlock(tmp->chan);
  		ast_channel_unlock(qe->chan);
  		do_hang(tmp);
@@ -223,7 +223,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-16115
  		char vars[2048];
  
  		manager_event(EVENT_FLAG_AGENT, "AgentCalled",
-@@ -3189,7 +3272,7 @@ static int ring_entry(struct queue_ent *
+@@ -3178,7 +3261,7 @@ static int ring_entry(struct queue_ent *
  	ast_channel_unlock(tmp->chan);
  	ast_channel_unlock(qe->chan);
  
@@ -232,7 +232,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-16115
  	return 1;
  }
  
-@@ -7173,7 +7256,7 @@ static int manager_queues_summary(struct
+@@ -7139,7 +7222,7 @@ static int manager_queues_summary(struct
  			while ((mem = ao2_iterator_next(&mem_iter))) {
  				if ((mem->status != AST_DEVICE_UNAVAILABLE) && (mem->status != AST_DEVICE_INVALID)) {
  					++qmemcount;

@@ -15,6 +15,7 @@ menuselect-channel-drivers.diff
 menuselect-resource-modules.diff
 
 # Backports from branches/1.8
+backport-r336093.diff
 backport-r339719.diff
 backport-r341314.diff
 backport-r347531.diff

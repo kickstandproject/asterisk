@@ -1,3 +1,15 @@
+From: Richard Mudgett <irroot>
+Subject: Locking order in app_queue.c causes deadlocks.
+ a channel lock must never be held with the queues container lock held.
+
+ the deadlock occured on masquerade.
+
+ the queues container lock is a relic of the past the old queue module lock.
+ with ao2 there is no need to hold this lock when dealing with members this
+ patch removes unneeded locks.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=336093
+Bug: https://issues.asterisk.org/jira/browse/ASTERISK-18101
+Bug: https://issues.asterisk.org/jira/browse/ASTERISK-18487
 --- a/apps/app_queue.c
 +++ b/apps/app_queue.c
 @@ -2366,13 +2366,11 @@ static struct call_queue *load_realtime_

@@ -1,3 +1,9 @@
+From: Richard Mudgett <rmudgett@digium.com>
+Subject: Fix potential deadlock calling ast_call() with channel locks held.
+ Fixed app_queue.c:ring_entry() calling ast_call() with the channel locks
+ held.  Chan_local attempts to do deadlock avoidance in its ast_call()
+ callback and could deadlock if a channel lock is already held.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=344539
 --- a/apps/app_queue.c
 +++ b/apps/app_queue.c
 @@ -3069,10 +3069,7 @@ static int ring_entry(struct queue_ent *

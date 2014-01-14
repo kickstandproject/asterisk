@@ -18,6 +18,7 @@ menuselect-resource-modules.diff
 backport-r336093.diff
 backport-r339719.diff
 backport-r341314.diff
+backport-r344539.diff
 backport-r347531.diff
 backport-r350837.diff
 backport-r351504.diff

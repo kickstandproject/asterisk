@@ -67,7 +67,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
  			ao2_unlink(q->members, m);
  			q->membercount--;
  		}
-@@ -5667,6 +5684,8 @@ static int rqm_exec(struct ast_channel *
+@@ -5666,6 +5683,8 @@ static int rqm_exec(struct ast_channel *
  {
  	int res=-1;
  	char *parse, *temppos = NULL;
@@ -76,7 +76,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
  	AST_DECLARE_APP_ARGS(args,
  		AST_APP_ARG(queuename);
  		AST_APP_ARG(interface);
-@@ -5692,9 +5711,17 @@ static int rqm_exec(struct ast_channel *
+@@ -5691,9 +5710,17 @@ static int rqm_exec(struct ast_channel *
  
  	ast_debug(1, "queue: %s, member: %s\n", args.queuename, args.interface);
  
@@ -95,7 +95,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
  		ast_log(LOG_NOTICE, "Removed interface '%s' from queue '%s'\n", args.interface, args.queuename);
  		pbx_builtin_setvar_helper(chan, "RQMSTATUS", "REMOVED");
  		res = 0;
-@@ -5724,6 +5751,7 @@ static int aqm_exec(struct ast_channel *
+@@ -5723,6 +5750,7 @@ static int aqm_exec(struct ast_channel *
  {
  	int res=-1;
  	char *parse, *temppos = NULL;
@@ -103,7 +103,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
  	AST_DECLARE_APP_ARGS(args,
  		AST_APP_ARG(queuename);
  		AST_APP_ARG(interface);
-@@ -5759,7 +5787,11 @@ static int aqm_exec(struct ast_channel *
+@@ -5758,7 +5786,11 @@ static int aqm_exec(struct ast_channel *
  
  	switch (add_to_queue(args.queuename, args.interface, args.membername, penalty, 0, queue_persistent_members, args.state_interface)) {
  	case RES_OKAY:
@@ -116,7 +116,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
  		ast_log(LOG_NOTICE, "Added interface '%s' to queue '%s'\n", args.interface, args.queuename);
  		pbx_builtin_setvar_helper(chan, "AQMSTATUS", "ADDED");
  		res = 0;
-@@ -5775,7 +5807,7 @@ static int aqm_exec(struct ast_channel *
+@@ -5774,7 +5806,7 @@ static int aqm_exec(struct ast_channel *
  		res = 0;
  		break;
  	case RES_OUTOFMEMORY:
@@ -125,7 +125,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
  		break;
  	}
  
-@@ -6596,6 +6628,9 @@ static void queue_set_global_params(stru
+@@ -6595,6 +6627,9 @@ static void queue_set_global_params(stru
  	shared_lastcall = 0;
  	if ((general_val = ast_variable_retrieve(cfg, "general", "shared_lastcall")))
  		shared_lastcall = ast_true(general_val);
@@ -135,7 +135,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
  }
  
  /*! \brief reload information pertaining to a single member
-@@ -7395,7 +7430,11 @@ static int manager_add_queue_member(stru
+@@ -7394,7 +7429,11 @@ static int manager_add_queue_member(stru
  
  	switch (add_to_queue(queuename, interface, membername, penalty, paused, queue_persistent_members, state_interface)) {
  	case RES_OKAY:
@@ -148,7 +148,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
  		astman_send_ack(s, m, "Added interface to queue");
  		break;
  	case RES_EXISTS:
-@@ -7415,6 +7454,7 @@ static int manager_add_queue_member(stru
+@@ -7414,6 +7453,7 @@ static int manager_add_queue_member(stru
  static int manager_remove_queue_member(struct mansession *s, const struct message *m)
  {
  	const char *queuename, *interface;
@@ -156,7 +156,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
  
  	queuename = astman_get_header(m, "Queue");
  	interface = astman_get_header(m, "Interface");
-@@ -7424,9 +7464,17 @@ static int manager_remove_queue_member(s
+@@ -7423,9 +7463,17 @@ static int manager_remove_queue_member(s
  		return 0;
  	}
  
@@ -175,7 +175,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
  		astman_send_ack(s, m, "Removed interface from queue");
  		break;
  	case RES_EXISTS:
-@@ -7648,7 +7696,11 @@ static char *handle_queue_add_member(str
+@@ -7647,7 +7695,11 @@ static char *handle_queue_add_member(str
  
  	switch (add_to_queue(queuename, interface, membername, penalty, 0, queue_persistent_members, state_interface)) {
  	case RES_OKAY:
@@ -188,7 +188,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
  		ast_cli(a->fd, "Added interface '%s' to queue '%s'\n", interface, queuename);
  		return CLI_SUCCESS;
  	case RES_EXISTS:
-@@ -7716,11 +7768,12 @@ static char *complete_queue_remove_membe
+@@ -7715,11 +7767,12 @@ static char *complete_queue_remove_membe
  static char *handle_queue_remove_member(struct ast_cli_entry *e, int cmd, struct ast_cli_args *a)
  {
  	const char *queuename, *interface;
@@ -202,7 +202,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
  			"Usage: queue remove member <channel> from <queue>\n"
  			"       Remove a specific channel from a queue.\n";
  		return NULL;
-@@ -7737,10 +7790,18 @@ static char *handle_queue_remove_member(
+@@ -7736,10 +7789,18 @@ static char *handle_queue_remove_member(
  	queuename = a->argv[5];
  	interface = a->argv[3];
  
@@ -223,7 +223,7 @@ Bug: https://issues.asterisk.org/jira/browse/ASTERISK-14769
  		return CLI_SUCCESS;
  	case RES_EXISTS:
  		ast_cli(a->fd, "Unable to remove interface '%s' from queue '%s': Not there\n", interface, queuename);
-@@ -8463,6 +8524,26 @@ static int reload(void)
+@@ -8462,6 +8523,26 @@ static int reload(void)
  	return 0;
  }
  

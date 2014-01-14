@@ -9,8 +9,11 @@ asterisk (2:1.8.7.1-1kickstand0) UNRELEASED; urgency=low
     - AST-2012-003: Stack Buffer Overflow in HTTP Manager
     - AST-2012-006: Remote Crash Vulnerability in SIP Channel Driver
   * Backports from branches/1.8:
+    - r336093: Locking order in app_queue.c causes deadlocks
     - r339719: Fix regression in configure script for libpri capability checks
     - r341314: Don't resolve numeric hosts or contact unresolved hosts
+    - r344539: Fix potential deadlock calling ast_call() with channel locks
+      held
     - r350837: Ensure that all AC_LANG_PROGRAM calls in the configure script
       are properly quoted
     - r352643: Fix -Werror=unused-but-set-variable compiler error

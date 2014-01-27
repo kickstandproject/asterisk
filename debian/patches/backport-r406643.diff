@@ -1,0 +1,20 @@
+From: Russell Bryant <russell@russellbryant.net>
+Subject: Allow nested #includes in extconfig.conf
+ extconfig.conf was hard-coded to not allow nested includes for some reason.
+ The code has been this way since a patch was merged for ASTERISK-3333 (revision
+ 4889), which was a significant update to this code ("Merge config updates").
+
+ I can't figure out any good reason why this should be limited.  This patch just
+ removes the limit and uses the default nesting depth limit.
+Origin: upstream, http://svnview.digium.com/svn/asterisk?view=revision&revision=406643
+Bug: https://issues.asterisk.org/jira/browse/ASTERISK-17837
+--- a/main/config.c
++++ b/main/config.c
+@@ -2094,7 +2094,6 @@ int read_config_maps(void)
+ 	clear_config_maps();
+ 
+ 	configtmp = ast_config_new();
+-	configtmp->max_include_level = 1;
+ 	config = ast_config_internal_load(extconfig_conf, configtmp, flags, "", "extconfig");
+ 	if (config == CONFIG_STATUS_FILEINVALID) {
+ 		return -1;

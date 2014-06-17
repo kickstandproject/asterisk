@@ -1,0 +1,57 @@
+--- a/apps/app_queue.c
++++ b/apps/app_queue.c
+@@ -1195,6 +1195,7 @@ static struct ao2_container *queues;
+ 
+ static void update_realtime_members(struct call_queue *q);
+ static int set_member_paused(const char *queuename, const char *interface, const char *reason, int paused);
++static char *vars2manager(struct ast_channel *chan, char *vars, size_t len);
+ 
+ static void queue_transfer_fixup(void *data, struct ast_channel *old_chan, struct ast_channel *new_chan); 
+ 
+@@ -2492,6 +2493,7 @@ static int join_queue(char *queuename, s
+ 	if (*reason == QUEUE_UNKNOWN && q->maxlen && (q->count >= q->maxlen))
+ 		*reason = QUEUE_FULL;
+ 	else if (*reason == QUEUE_UNKNOWN) {
++		char vars[2048];
+ 		/* There's space for us, put us at the right position inside
+ 		 * the queue.
+ 		 * Take into account the priority of the calling user */
+@@ -2538,13 +2540,15 @@ static int join_queue(char *queuename, s
+ 			"Queue: %s\r\n"
+ 			"Position: %d\r\n"
+ 			"Count: %d\r\n"
+-			"Uniqueid: %s\r\n",
++			"Uniqueid: %s\r\n"
++			"%s",
+ 			qe->chan->name,
+ 			S_COR(qe->chan->caller.id.number.valid, qe->chan->caller.id.number.str, "unknown"),/* XXX somewhere else it is <unknown> */
+ 			S_COR(qe->chan->caller.id.name.valid, qe->chan->caller.id.name.str, "unknown"),
+ 			S_COR(qe->chan->connected.id.number.valid, qe->chan->connected.id.number.str, "unknown"),/* XXX somewhere else it is <unknown> */
+ 			S_COR(qe->chan->connected.id.name.valid, qe->chan->connected.id.name.str, "unknown"),
+-			q->name, qe->pos, q->count, qe->chan->uniqueid );
++			q->name, qe->pos, q->count, qe->chan->uniqueid,
++			vars2manager(qe->chan, vars, sizeof(vars)));
+ 		ast_debug(1, "Queue '%s' Join, Channel '%s', Position '%d'\n", q->name, qe->chan->name, qe->pos );
+ 	}
+ 	ao2_unlock(q);
+@@ -3453,6 +3457,7 @@ static int say_periodic_announcement(str
+ /*! \brief Record that a caller gave up on waiting in queue */
+ static void record_abandoned(struct queue_ent *qe)
+ {
++	char vars[2048];
+ 	set_queue_variables(qe->parent, qe->chan);
+ 	ao2_lock(qe->parent);
+ 	manager_event(EVENT_FLAG_AGENT, "QueueCallerAbandon",
+@@ -3460,8 +3465,10 @@ static void record_abandoned(struct queu
+ 		"Uniqueid: %s\r\n"
+ 		"Position: %d\r\n"
+ 		"OriginalPosition: %d\r\n"
+-		"HoldTime: %d\r\n",
+-		qe->parent->name, qe->chan->uniqueid, qe->pos, qe->opos, (int)(time(NULL) - qe->start));
++		"HoldTime: %d\r\n"
++		"%s",
++		qe->parent->name, qe->chan->uniqueid, qe->pos, qe->opos, (int)(time(NULL) - qe->start),
++		vars2manager(qe->chan, vars, sizeof(vars)));
+ 
+ 	qe->parent->callsabandoned++;
+ 	ao2_unlock(qe->parent);

@@ -38,5 +38,6 @@ asterisk (2:1.8.7.1-1kickstand0) UNRELEASED; urgency=low
     - r360536: Convert ast_verb() to ast_debug() and increase log level
     - r362043: Convert SRV lookup message to debug level
     - r390209: Add queue_log_realtime_use_gmt option to logger.conf
+    - r422241: chan_sip.c: Add 'rtpbindaddr' setting
 
  -- Paul Belanger <paul.belanger@polybeacon.com>  Mon, 27 Jan 2014 16:24:20 -0500
